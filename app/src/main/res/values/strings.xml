@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">PropertyListing</string>
+    <string name="extendedPrice">%s%s %s for %d nights</string>
+    <string name="refresh">Refresh</string>
+    <string name="error">Error</string>
+</resources>
