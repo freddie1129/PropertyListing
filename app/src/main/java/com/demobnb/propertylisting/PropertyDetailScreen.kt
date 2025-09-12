@@ -25,6 +25,8 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -39,7 +41,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.demobnb.propertylisting.mock.MockData
+import com.demobnb.propertylisting.model.Host
 import com.demobnb.propertylisting.ui.view.CircularIconButton
+import com.demobnb.propertylisting.ui.view.HostView
 import com.demobnb.propertylisting.ui.view.ImageSlider
 
 @Composable
@@ -111,6 +115,12 @@ fun PropertyDetailScreen(itemId: Long) {
                 style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(horizontal = 8.dp)
         )
+
+        HorizontalDivider(modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp))
+
+        HostView(detail.host)
+
+        HorizontalDivider(modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp))
 
 
 

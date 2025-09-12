@@ -1,6 +1,6 @@
 package com.demobnb.propertylisting.mock
 
-import com.demobnb.propertylisting.model.Owner
+import com.demobnb.propertylisting.model.Host
 import com.demobnb.propertylisting.model.PropertyDetail
 import com.demobnb.propertylisting.model.PropertySummary
 import io.github.serpro69.kfaker.faker
@@ -13,6 +13,7 @@ object MockData {
 
     val imageUrl = "https://picsum.photos/200"
 
+    val avatarUrl = "https://picsum.photos/id/65/200/200"
 
 
     fun generateImageUrls(id: Long) = (id..id + 5).map { "https://picsum.photos/id/${it}/400/200" }.toList()
@@ -32,15 +33,17 @@ object MockData {
     }
 
 
-    val owner = Owner(
+    val host = Host(
         id = 12L,
-        name = faker.name.firstName(),
-        avatar = imageUrl,
+        firstName = faker.name.firstName(),
+        lastName = faker.name.lastName(),
+        avatar = avatarUrl,
         feature = "SupperHost",
         address = faker.address.fullAddress(),
         reviewCount = 123,
         averageRate = 4.37f,
         createdAt = LocalDate.now().minusYears(5),
+        firstHostAt = LocalDate.now().minusYears(3),
         introduction = faker.lorem.words()
     )
 
@@ -56,7 +59,7 @@ object MockData {
             address = faker.address.fullAddress(),
             averageRate = Random.nextFloat() * 5f,
             reviewCount = 100,
-            owner = owner,
+            host = host,
             introduction = faker.lorem.words(),
             amenities = listOf(),
             longitude = 27.9769f,

@@ -4,6 +4,9 @@
     <string name="refresh">Refresh</string>
     <string name="error">Error</string>
 
+    <string name="hostedBy">Hosted by %s</string>
+    <string name="hosting">hosting</string>
+
     <plurals name="numberOfGuest">
         <item quantity="one">%d guest</item>
         <item quantity="other">%d guests</item>
@@ -24,6 +27,16 @@
     <plurals name="numberOfReview">
         <item quantity="one">Review</item>
         <item quantity="other">Reviews</item>
+    </plurals>
+
+    <plurals name="numberOfMonth">
+        <item quantity="one">month</item>
+        <item quantity="other">months</item>
+    </plurals>
+
+    <plurals name="numberOfYear">
+        <item quantity="one">year</item>
+        <item quantity="other">years</item>
     </plurals>
 
 
