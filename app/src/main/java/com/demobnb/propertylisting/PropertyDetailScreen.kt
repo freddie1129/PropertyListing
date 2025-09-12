@@ -48,6 +48,7 @@ import com.demobnb.propertylisting.ui.view.ExpandableTextView
 import com.demobnb.propertylisting.ui.view.HighlightsView
 import com.demobnb.propertylisting.ui.view.HostView
 import com.demobnb.propertylisting.ui.view.ImageSlider
+import com.demobnb.propertylisting.ui.view.ReviewView
 
 @Composable
 fun PropertyDetailScreen(itemId: Long) {
@@ -149,7 +150,16 @@ fun PropertyDetailScreen(itemId: Long) {
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(horizontal = 8.dp)
                 )
+
+                Spacer(modifier = Modifier.height(12.dp))
+                ReviewView(averageRate = detail.averageRate,
+                    reviewStandout = detail.reviewStandout,
+                    reviewCount = detail.reviewCount)
             }
+
+
+
+
 
             HorizontalDivider()
 

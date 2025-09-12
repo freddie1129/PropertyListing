@@ -11,6 +11,7 @@ data class PropertyDetail(
     val bathCount: Int,
     val address: String,
     val averageRate: Float,
+    val reviewStandout: String,
     val reviewCount: Int,
     val host: Host,
     val featureImages: List<String>,

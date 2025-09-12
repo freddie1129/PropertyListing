@@ -88,6 +88,7 @@ object MockData {
             featureImages = generateImageUrls(id),
             address = faker.address.fullAddress(),
             averageRate = Random.nextFloat() * 5f,
+            reviewStandout = "Guest favourite",
             reviewCount = 100,
             host = host,
             highlights = listOf(1, 2, 3, 4, 5),

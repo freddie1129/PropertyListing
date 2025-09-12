@@ -6,23 +6,32 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,24 +67,42 @@ fun ReviewView(averageRate: Float, reviewStandout: String, reviewCount: Int) {
             }
 
         }
+        VerticalDivider(
+            modifier = Modifier
+                .height(24.dp) // make divider span row height
+                .width(1.dp)     // divider thickness
+        )
 
         Row(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1.5f),
             verticalAlignment = Alignment.CenterVertically,
 
             ) {
             Spacer(modifier = Modifier.weight(1f))
-            Icon(Icons.Default.Favorite, contentDescription = "Favorite")
+            Icon(painter = painterResource(id = R.drawable.outline_clear_all_24),
+                contentDescription = stringResource(R.string.reviewStandout),
+                modifier = Modifier.graphicsLayer(
+                    scaleX = -1f
+                ))
+            Spacer(modifier = Modifier.width(5.dp))
             Text(
                 text = reviewStandout.replace(" ", "\n"),
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 16.sp)
             )
-            Icon(Icons.Default.Favorite, contentDescription = "Favorite")
+            Spacer(modifier = Modifier.width(5.dp))
+            Icon(painter = painterResource(id = R.drawable.outline_clear_all_24),
+                contentDescription = stringResource(R.string.reviewStandout))
             Spacer(modifier = Modifier.weight(1f))
 
         }
+
+        VerticalDivider(
+            modifier = Modifier
+                .height(24.dp) // make divider span row height
+                .width(1.dp)     // divider thickness
+        )
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -88,7 +115,8 @@ fun ReviewView(averageRate: Float, reviewStandout: String, reviewCount: Int) {
             )
             val reviewString =
                 context.resources.getQuantityString(R.plurals.numberOfReview, reviewCount)
-            Text(text = reviewString)
+            Text(text = reviewString,
+                style = MaterialTheme.typography.bodySmall)
         }
     }
 
