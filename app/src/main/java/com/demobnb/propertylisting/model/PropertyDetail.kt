@@ -14,6 +14,7 @@ data class PropertyDetail(
     val reviewCount: Int,
     val host: Host,
     val featureImages: List<String>,
+    val highlights: List<Int>,
     val introduction: String,
     val amenities: List<Facility>,
     val longitude: Float,

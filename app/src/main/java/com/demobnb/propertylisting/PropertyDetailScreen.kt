@@ -37,12 +37,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.Host
 import com.demobnb.propertylisting.ui.view.CircularIconButton
+import com.demobnb.propertylisting.ui.view.HighlightsView
 import com.demobnb.propertylisting.ui.view.HostView
 import com.demobnb.propertylisting.ui.view.ImageSlider
 
@@ -63,68 +65,102 @@ fun PropertyDetailScreen(itemId: Long) {
                 modifier = Modifier.fillMaxWidth().height(250.dp)
             )
 
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
+            ) {
                 CircularIconButton(onClick = {}) {
-                    Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Star",
-                        modifier = Modifier.size(12.dp) )
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Star",
+                        modifier = Modifier.size(12.dp)
+                    )
                 }
 
                 Spacer(modifier = Modifier.weight(1f))
 
                 CircularIconButton(onClick = {}) {
-                    Icon(imageVector = Icons.Default.FavoriteBorder, contentDescription = "Star",
-                        modifier = Modifier.size(12.dp) )
+                    Icon(
+                        imageVector = Icons.Default.FavoriteBorder, contentDescription = "Star",
+                        modifier = Modifier.size(12.dp)
+                    )
                 }
                 CircularIconButton(onClick = {}) {
-                    Icon(imageVector = Icons.Default.Share, contentDescription = "Star",
-                        modifier = Modifier.size(12.dp) )
+                    Icon(
+                        imageVector = Icons.Default.Share, contentDescription = "Star",
+                        modifier = Modifier.size(12.dp)
+                    )
                 }
 
 
 
                 CircularIconButton(onClick = {}) {
-                    Icon(imageVector = Icons.Default.Refresh, contentDescription = "Star",
-                        modifier = Modifier.size(12.dp) )
+                    Icon(
+                        imageVector = Icons.Default.Refresh, contentDescription = "Star",
+                        modifier = Modifier.size(12.dp)
+                    )
                 }
 
             }
         }
 
-        Text(text = detail.title,
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp))
-        Text(text = detail.address,
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(horizontal = 8.dp))
+        Column(modifier = Modifier.fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
 
-        val guestCountString = context.resources.getQuantityString(R.plurals.numberOfGuest,
-            detail.guestCount, detail.guestCount)
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = detail.title,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
+                )
+                Text(
+                    text = detail.address,
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
 
-        val bedroomCountString = context.resources.getQuantityString(R.plurals.numberOfBedroom,
-            detail.bedroomCount, detail.bedroomCount)
+                val guestCountString = context.resources.getQuantityString(
+                    R.plurals.numberOfGuest,
+                    detail.guestCount, detail.guestCount
+                )
 
-        val bedCountString = context.resources.getQuantityString(R.plurals.numberOfBed,
-            detail.bedCount, detail.bedCount)
+                val bedroomCountString = context.resources.getQuantityString(
+                    R.plurals.numberOfBedroom,
+                    detail.bedroomCount, detail.bedroomCount
+                )
 
-        val bathString = context.resources.getQuantityString(R.plurals.numberOfBath,
-            detail.bathCount, detail.bathCount)
+                val bedCountString = context.resources.getQuantityString(
+                    R.plurals.numberOfBed,
+                    detail.bedCount, detail.bedCount
+                )
 
-        Text(text = "$guestCountString | $bedroomCountString | $bedCountString | $bathString",
-                style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(horizontal = 8.dp)
-        )
+                val bathString = context.resources.getQuantityString(
+                    R.plurals.numberOfBath,
+                    detail.bathCount, detail.bathCount
+                )
 
-        HorizontalDivider(modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp))
+                Text(
+                    text = "$guestCountString | $bedroomCountString | $bedCountString | $bathString",
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+            }
 
-        HostView(detail.host)
+            HorizontalDivider()
 
-        HorizontalDivider(modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp))
+            HostView(detail.host)
+
+            HorizontalDivider()
+
+            HighlightsView(highlights = detail.highlights)
 
 
-
-        Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(1f))
+        }
     }
 
 }

@@ -40,4 +40,23 @@
     </plurals>
 
 
+    <string name="city_view">City view</string>
+    <string name="city_view_des">Soak up the view during your stay.</string>
+
+
+    <string name="dive_right_in">Dive right in</string>
+    <string name="dive_right_in_des">This is one of the few places in the area with a pool</string>
+
+
+    <string name="extra_spacious">Extra spacious</string>
+    <string name="extra_spacious_des">Guests love this home\'s spaciousness for a comfortable stay.</string>
+
+
+    <string name="self_check_in">Self check-in</string>
+    <string name="self_check_in_des">Check yourself in with the key safe.</string>
+
+    <string name="peace_and_quiet">Peace and quiet</string>
+    <string name="peace_and_quiet_des">Guests say this home is in a quiet area.</string>
+
+
 </resources>
