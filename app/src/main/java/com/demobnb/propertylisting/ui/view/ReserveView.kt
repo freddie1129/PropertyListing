@@ -44,7 +44,7 @@ fun ReserveView(
                     color = Color.LightGray,
                     start = Offset(0f, 0f),
                     end = Offset(size.width, 0f),
-                    strokeWidth = 1f
+                    strokeWidth = 2f
                 )
             }
             .padding(vertical = 8.dp, horizontal = 10.dp)) {

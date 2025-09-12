@@ -44,18 +44,18 @@ import com.demobnb.propertylisting.mock.MockData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExpandableTextView(text: String) {
+fun ExpandableTextView(text: String, modifier: Modifier = Modifier) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
     var hasOverflow by remember { mutableStateOf(false) }
 
     var showSheet by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(modifier = modifier) {
         Text(
             text = text,
-            maxLines = 5,                        // 👈 limit to 5 lines
-            overflow = TextOverflow.Ellipsis,    // 👈 add "..."
+            maxLines = 5,
+            overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.bodyMedium,
             onTextLayout = { textLayoutResult: TextLayoutResult ->
 

@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -175,6 +176,8 @@ fun PropertyDetailScreen(itemId: Long) {
 
                 HorizontalDivider()
 
+                Text(text = stringResource(R.string.about_this_place),
+                    style = MaterialTheme.typography.bodyMedium)
                 ExpandableTextView(text = detail.introduction)
 
 
