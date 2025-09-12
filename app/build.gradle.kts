@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.propertylisting"
+    namespace = "com.demobnb.propertylisting"
     compileSdk = 36
 
     defaultConfig {
