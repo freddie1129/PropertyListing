@@ -14,6 +14,15 @@ import org.junit.Test
 
 
 
+/**
+ * [HighlightsViewTest] is a test class for the [HighlightsView] Composable.
+ *
+ * The tests cover:
+ * - Displaying highlights correctly when valid IDs are provided.
+ * - Handling an empty list of highlight IDs gracefully.
+ * - Handling a list containing invalid highlight IDs gracefully (e.g., displaying valid ones and ignoring invalid ones).
+ *
+ */
 class HighlightsViewTest {
 
     @get:Rule

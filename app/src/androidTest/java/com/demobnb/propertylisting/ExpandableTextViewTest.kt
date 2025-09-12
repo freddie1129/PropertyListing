@@ -9,18 +9,19 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.demobnb.propertylisting.constant.TestTags
 import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.ui.view.ExpandableTextView
+import com.demobnb.propertylisting.ui.view.HighlightsView
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+
 /**
- * Test suite for the [ExpandableTextView] Composable.
+ * [ExpandableTextViewTest] is a test class for the [ExpandableTextView] Composable.
  *
- * This class contains UI tests to verify the behavior of the [ExpandableTextView]
- * under different conditions, such as:
- * - When the text is short (less than the collapsed line limit).
- * - When the text is exactly at the collapsed line limit.
- * - When the text is long (exceeds the collapsed line limit).
+ * The tests cover:
+ * - When the text is short (less than the collapsed line limit(5)).
+ * - When the text is exactly at the collapsed line limit(5).
+ * - When the text is long (exceeds the collapsed line limit(5)).
  * - Interaction with the "Show more" button and the resulting bottom sheet.
  * - Closing the bottom sheet.
  */

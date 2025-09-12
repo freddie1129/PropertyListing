@@ -49,6 +49,34 @@ object MockData {
         introduction = faker.lorem.words()
     )
 
+    val hostWith3YearHosting = Host(
+        id = 12L,
+        firstName = faker.name.firstName(),
+        lastName = faker.name.lastName(),
+        avatar = avatarUrl,
+        feature = "SupperHost",
+        address = faker.address.fullAddress(),
+        reviewCount = 123,
+        averageRate = 4.37f,
+        createdAt = LocalDate.now().minusYears(5),
+        firstHostAt = LocalDate.now().minusYears(3),
+        introduction = faker.lorem.words()
+    )
+
+    val hostWith6MonthHosting = Host(
+        id = 12L,
+        firstName = faker.name.firstName(),
+        lastName = faker.name.lastName(),
+        avatar = avatarUrl,
+        feature = "SupperHost",
+        address = faker.address.fullAddress(),
+        reviewCount = 123,
+        averageRate = 4.37f,
+        createdAt = LocalDate.now().minusYears(5),
+        firstHostAt = LocalDate.now().minusMonths(6),
+        introduction = faker.lorem.words()
+    )
+
     fun generatePropertyDetail(id: Long): PropertyDetail {
         return PropertyDetail(
             id = id,
