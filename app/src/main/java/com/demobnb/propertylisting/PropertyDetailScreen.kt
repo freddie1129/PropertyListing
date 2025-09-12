@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.Host
 import com.demobnb.propertylisting.ui.view.CircularIconButton
+import com.demobnb.propertylisting.ui.view.ExpandableTextView
 import com.demobnb.propertylisting.ui.view.HighlightsView
 import com.demobnb.propertylisting.ui.view.HostView
 import com.demobnb.propertylisting.ui.view.ImageSlider
@@ -55,7 +56,7 @@ fun PropertyDetailScreen(itemId: Long) {
     val detail = MockData.generatePropertyDetail(itemId)
     val context = LocalContext.current
     Column(
-        modifier = Modifier.fillMaxSize().verticalScroll(scrollState),
+        modifier = Modifier.fillMaxWidth().verticalScroll(scrollState),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -157,6 +158,10 @@ fun PropertyDetailScreen(itemId: Long) {
             HorizontalDivider()
 
             HighlightsView(highlights = detail.highlights)
+
+            HorizontalDivider()
+
+            ExpandableTextView(text = detail.introduction)
 
 
             Spacer(modifier = Modifier.weight(1f))

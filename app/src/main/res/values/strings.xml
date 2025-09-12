@@ -7,6 +7,8 @@
     <string name="hostedBy">Hosted by %s</string>
     <string name="hosting">hosting</string>
 
+    <string name="show_more">Show more</string>
+
     <plurals name="numberOfGuest">
         <item quantity="one">%d guest</item>
         <item quantity="other">%d guests</item>
@@ -57,6 +59,8 @@
 
     <string name="peace_and_quiet">Peace and quiet</string>
     <string name="peace_and_quiet_des">Guests say this home is in a quiet area.</string>
+    <string name="close_bottom_sheet">Close bottom sheet</string>
+
 
 
 </resources>

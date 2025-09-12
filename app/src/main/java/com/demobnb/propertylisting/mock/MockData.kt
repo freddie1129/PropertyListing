@@ -15,6 +15,8 @@ object MockData {
 
     val avatarUrl = "https://picsum.photos/id/65/200/200"
 
+    val longSentence = Array(500) { MockData.faker.lorem.words() }.joinToString(" ")
+    val shortSentence = Array(10) { MockData.faker.lorem.words() }.joinToString(" ")
 
     fun generateImageUrls(id: Long) = (id..id + 5).map { "https://picsum.photos/id/${it}/400/200" }.toList()
 
@@ -61,7 +63,7 @@ object MockData {
             reviewCount = 100,
             host = host,
             highlights = listOf(1, 2, 3, 4, 5),
-            introduction = faker.lorem.words(),
+            introduction = longSentence,
             amenities = listOf(),
             longitude = 27.9769f,
             latitude = 153.3809f,
