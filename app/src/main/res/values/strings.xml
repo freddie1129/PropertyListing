@@ -3,4 +3,28 @@
     <string name="extendedPrice">%s%s %s for %d nights</string>
     <string name="refresh">Refresh</string>
     <string name="error">Error</string>
+
+    <plurals name="numberOfGuest">
+        <item quantity="one">%d guest</item>
+        <item quantity="other">%d guests</item>
+    </plurals>
+    <plurals name="numberOfBedroom">
+        <item quantity="one">%d bedroom</item>
+        <item quantity="other">%d bedrooms</item>
+    </plurals>
+    <plurals name="numberOfBed">
+        <item quantity="one">%d bed</item>
+        <item quantity="other">%d beds</item>
+    </plurals>
+    <plurals name="numberOfBath">
+        <item quantity="one">%d bath</item>
+        <item quantity="other">%d baths</item>
+    </plurals>
+
+    <plurals name="numberOfReview">
+        <item quantity="one">Review</item>
+        <item quantity="other">Reviews</item>
+    </plurals>
+
+
 </resources>
