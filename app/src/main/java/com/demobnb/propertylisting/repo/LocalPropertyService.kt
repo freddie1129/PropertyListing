@@ -14,6 +14,7 @@ class LocalPropertyService @Inject constructor(val propertySummaryDao: PropertyS
     }
 
     override suspend fun fetchPropertyDetails(id: Long): PropertyDetail {
+        throw Exception("Not implemented")
         return MockData.generatePropertyDetail(id = id)
     }
 

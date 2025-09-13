@@ -21,9 +21,7 @@ data class UiState(
     val error: String? = null
 )
 
-data class PropertyListState(
-    val properties: List<PropertySummary> = emptyList()
-)
+
 
 @HiltViewModel
 class PropertyListViewModel @Inject constructor(

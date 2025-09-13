@@ -92,7 +92,7 @@ object MockData {
             reviewCount = 100,
             host = host,
             highlights = listOf(1, 2, 3, 4, 5),
-            introduction = longSentence,
+            introduction = "",// longSentence,
             facilities = listOf(),
             longitude = 27.9769f,
             latitude = 153.3809f,

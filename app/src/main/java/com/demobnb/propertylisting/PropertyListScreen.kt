@@ -3,15 +3,12 @@ package com.demobnb.propertylisting
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -28,52 +25,44 @@ import androidx.navigation.NavController
 import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.PropertySummary
 import com.demobnb.propertylisting.ui.view.PropertySummaryView
+import com.demobnb.propertylisting.ui.view.UIStateScreen
 
 
 @Composable
-fun PropertyListScreenContent(items: List<PropertySummary>, uiState: UiState,
-                              onPropertyClick: (Long) -> Unit,
-                              onRefresh: () -> Unit,
-                              onDismissAlert: () -> Unit,
-                              ) {
+fun PropertyListScreen(
+    navController: NavController,
+    viewModel: PropertyListViewModel = hiltViewModel()
+) {
+    val items by viewModel.propertyListState.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
+
+    UIStateScreen(uiState = uiState, onDismissAlert = {
+        viewModel.resetUiState()
+    }) {
+        PropertyListScreenContentView(items = items, uiState = uiState,
+            onRefresh = {viewModel.loadData()}, onPropertyClick = {
+                navController.navigate("detail/$it")
+            })
+    }
+}
+
+@Composable
+fun PropertyListScreenContentView(items: List<PropertySummary>,
+                                  uiState: UiState,
+                                  onRefresh: () -> Unit,
+                                  onPropertyClick: (Long) -> Unit) {
     val scrollState = rememberScrollState()
+    Box {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.verticalScroll(scrollState)
+        ) {
+            items.forEach { item ->
+                key(item.id) {
+                    PropertySummaryView(property = item, onClick =  {
+                        onPropertyClick(item.id)
 
-    Box(modifier = Modifier.fillMaxSize()) {
-
-
-        Box(modifier = Modifier.fillMaxSize()) {
-            if (uiState.isLoading) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    CircularProgressIndicator()
-                }
-            } else if (uiState.error.orEmpty().isNotEmpty()) {
-                AlertDialog(
-                    onDismissRequest = onDismissAlert,
-                    title = { Text(stringResource(R.string.error)) },
-                    text = { Text(uiState.error.orEmpty()) },
-                    confirmButton = {
-                        Button(onClick = onDismissAlert) {
-                            Text("OK")
-                        }
-                    }
-                )
-            } else {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.verticalScroll(scrollState)
-                ) {
-                    items.forEach { item ->
-                        key(item.id) {
-                            PropertySummaryView(property = item, onClick =  {
-                                onPropertyClick(item.id)
-
-                            })
-                        }
-                    }
+                    })
                 }
             }
         }
@@ -92,89 +81,12 @@ fun PropertyListScreenContent(items: List<PropertySummary>, uiState: UiState,
         }
     }
 }
-@Composable
-fun PropertyListScreen(
-    navController: NavController,
-    viewModel: PropertyListViewModel = hiltViewModel()
-) {
-    val items by viewModel.propertyListState.collectAsState()
-    val uiState by viewModel.uiState.collectAsState()
-
-    PropertyListScreenContent(items = items, uiState = uiState, onPropertyClick = {
-        navController.navigate("detail/$it")
-    },
-        onRefresh = {
-            viewModel.loadData()
-        },
-        onDismissAlert = {
-            viewModel.resetUiState()
-        }
 
 
 
-        )
-
-    val scrollState = rememberScrollState()
-
-    Box(modifier = Modifier.fillMaxSize()) {
-
-
-        Box(modifier = Modifier.fillMaxSize()) {
-            if (uiState.isLoading) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    CircularProgressIndicator()
-                }
-            } else if (uiState.error.orEmpty().isNotEmpty()) {
-                AlertDialog(
-                    onDismissRequest = { viewModel.resetUiState() },
-                    title = { Text(stringResource(R.string.error)) },
-                    text = { Text(uiState.error.orEmpty()) },
-                    confirmButton = {
-                        Button(onClick = { viewModel.resetUiState() }) {
-                            Text("OK")
-                        }
-                    }
-                )
-            } else {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.verticalScroll(scrollState)
-                ) {
-                    items.forEach { item ->
-                        key(item.id) {
-                            PropertySummaryView(property = item, onClick = {
-                                navController.navigate("detail/${item.id}")
-                            })
-                        }
-                    }
-                }
-            }
-        }
-
-        Button(
-            onClick = {
-                viewModel.loadData()
-            },
-            enabled = !uiState.isLoading,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 20.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
-
-        ) {
-            Text(text = stringResource(R.string.refresh))
-        }
-    }
-}
 
 @Preview
 @Composable
 fun PropertyListScreenPreview() {
-    // val navController = rememberNavController()
-     PropertyListScreenContent(items = MockData.generateProperties(10), uiState = UiState(), onPropertyClick = {}, onRefresh = {}, onDismissAlert = {})
+     PropertyListScreenContentView(items = MockData.generateProperties(10), uiState = UiState(), onRefresh = {}, onPropertyClick = {})
 }

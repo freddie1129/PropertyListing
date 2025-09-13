@@ -40,7 +40,7 @@ class PropertyRepositoryImpl @Inject constructor(
         }
 
 
-        if (resourceLocalProperties is Resource.Success && resourceRemoteProperties is Resource.Success) {
+        if (resourceRemoteProperties is Resource.Success) {
             if (resourceLocalProperties.data != resourceRemoteProperties.data) {
                 resourceRemoteProperties.data?.let { data  ->
                     updateLocal(data)
@@ -67,7 +67,8 @@ class PropertyRepositoryImpl @Inject constructor(
     override fun fetchPropertyDetails(id: Long) = fetch<PropertyDetail>(local = {
         localService.fetchPropertyDetails(id)
     }, remote = {
-        remoteService.fetchPropertyDetails(id)
+        val a = remoteService.fetchPropertyDetails(id)
+        return@fetch a
     },
         updateLocal = { data ->
 
