@@ -16,8 +16,8 @@ interface PropertyRepository {
     fun fetchPropertyDetails(id: Long): Flow<Resource<PropertyDetail>>
 }
 class PropertyRepositoryImpl @Inject constructor(
-    @Remote private val remoteService: PropertyServiceApi,
-    @Local private val localService: PropertyServiceApi
+    @Remote private val remoteService: PropertyService,
+    @Local private val localService: PropertyService
 ) : PropertyRepository  {
 
     fun <T> fetch(local: suspend () -> T, remote: suspend () -> T) : Flow<Resource<T>> = flow {

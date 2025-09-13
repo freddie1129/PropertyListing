@@ -93,7 +93,7 @@ object MockData {
             host = host,
             highlights = listOf(1, 2, 3, 4, 5),
             introduction = longSentence,
-            amenities = listOf(),
+            facilities = listOf(),
             longitude = 27.9769f,
             latitude = 153.3809f,
             neighborHighlights = faker.lorem.words(),

@@ -17,7 +17,7 @@ data class PropertyDetail(
     val featureImages: List<String>,
     val highlights: List<Int>,
     val introduction: String,
-    val amenities: List<Facility>,
+    val facilities: List<Facility>,
     val longitude: Float,
     val latitude: Float,
     val neighborHighlights: String,

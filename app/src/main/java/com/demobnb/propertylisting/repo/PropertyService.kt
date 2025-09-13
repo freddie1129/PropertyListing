@@ -2,10 +2,13 @@ package com.demobnb.propertylisting.repo
 
 import com.demobnb.propertylisting.model.PropertyDetail
 import com.demobnb.propertylisting.model.PropertySummary
+import retrofit2.http.Path
 
-interface PropertyServiceApi {
+interface PropertyService {
+    //@GET("properties")
     suspend fun fetchProperties(): List<PropertySummary>
-    suspend fun fetchPropertyDetails(id: Long): PropertyDetail
+   // @GET("properties/{id}")
+    suspend fun fetchPropertyDetails(@Path("id") id: Long): PropertyDetail
 }
 
 

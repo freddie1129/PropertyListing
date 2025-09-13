@@ -6,7 +6,7 @@ import com.demobnb.propertylisting.model.PropertySummary
 import javax.inject.Inject
 
 
-class PropertyLocalService @Inject constructor() : PropertyServiceApi {
+class LocalPropertyService @Inject constructor() : PropertyService {
 
     override suspend fun fetchProperties(): List<PropertySummary> {
         return emptyList()  //MockData.generateProperties(7)
