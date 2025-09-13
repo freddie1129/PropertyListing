@@ -9,7 +9,7 @@ import javax.inject.Inject
 class MockRemotePropertyService @Inject constructor(): PropertyService {
 
     override suspend fun fetchProperties(): List<PropertySummary> {
-        delay(2000)
+        delay(5000)
         val a = MockData.generateProperties(20)
       //  GsonBuilder().setPrettyPrinting().create().toJson(a)
         return a

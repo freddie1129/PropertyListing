@@ -1,5 +1,7 @@
 package com.demobnb.propertylisting.repo
 
+import androidx.lifecycle.liveData
+import com.demobnb.propertylisting.data.local.PropertySummaryDao
 import com.demobnb.propertylisting.di.Local
 import com.demobnb.propertylisting.di.Remote
 import com.demobnb.propertylisting.model.DataSource
@@ -17,10 +19,11 @@ interface PropertyRepository {
 }
 class PropertyRepositoryImpl @Inject constructor(
     @Remote private val remoteService: PropertyService,
-    @Local private val localService: PropertyService
+    @Local private val localService: PropertyService,
+    private val propertySummaryDao: PropertySummaryDao
 ) : PropertyRepository  {
 
-    fun <T> fetch(local: suspend () -> T, remote: suspend () -> T) : Flow<Resource<T>> = flow {
+    fun <T> fetch(local: suspend () -> T, remote: suspend () -> T, updateLocal: suspend (T) -> Unit) : Flow<Resource<T>> = flow {
         emit(Resource.Loading(source = DataSource.LOCAL))
         val resourceLocalProperties = try {
             Resource.Success(local(), DataSource.LOCAL)
@@ -39,6 +42,9 @@ class PropertyRepositoryImpl @Inject constructor(
 
         if (resourceLocalProperties is Resource.Success && resourceRemoteProperties is Resource.Success) {
             if (resourceLocalProperties.data != resourceRemoteProperties.data) {
+                resourceRemoteProperties.data?.let { data  ->
+                    updateLocal(data)
+                }
                 emit(resourceRemoteProperties)
             }
         } else if (resourceRemoteProperties is Resource.Error) {
@@ -51,13 +57,22 @@ class PropertyRepositoryImpl @Inject constructor(
      localService.fetchProperties() },
         remote = {
      remoteService.fetchProperties()
-    })
+    },
+        updateLocal = { newProperties ->
+            propertySummaryDao.deleteAll()
+            propertySummaryDao.insertAll(newProperties)
+        }
+        )
 
     override fun fetchPropertyDetails(id: Long) = fetch<PropertyDetail>(local = {
         localService.fetchPropertyDetails(id)
     }, remote = {
         remoteService.fetchPropertyDetails(id)
-    })
+    },
+        updateLocal = { data ->
+
+        }
+        )
 
 
 

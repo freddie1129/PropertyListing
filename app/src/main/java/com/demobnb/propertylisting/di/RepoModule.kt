@@ -1,6 +1,7 @@
 package com.demobnb.propertylisting.di
 
 import com.demobnb.propertylisting.repo.LocalPropertyService
+import com.demobnb.propertylisting.repo.MockRemotePropertyService
 import com.demobnb.propertylisting.repo.RemotePropertyService
 import com.demobnb.propertylisting.repo.PropertyRepository
 import com.demobnb.propertylisting.repo.PropertyRepositoryImpl
@@ -31,6 +32,6 @@ abstract class RepoModule {
     @Remote
     @Singleton
     @Binds
-    abstract fun provideRemoteDataSource(impl: RemotePropertyService): PropertyService
+    abstract fun provideRemoteDataSource(impl: MockRemotePropertyService): PropertyService
 
 }
