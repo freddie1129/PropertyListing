@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.Host
+import com.demobnb.propertylisting.model.PropertyDetail
 import com.demobnb.propertylisting.ui.view.CircularIconButton
 import com.demobnb.propertylisting.ui.view.ExpandableTextView
 import com.demobnb.propertylisting.ui.view.HighlightsView
@@ -57,6 +58,149 @@ import com.demobnb.propertylisting.ui.view.ReserveView
 import com.demobnb.propertylisting.ui.view.ReviewView
 import java.time.LocalDate
 
+
+@Composable
+fun PropertyDetailScreenContent(detail: PropertyDetail, uiState: UiState) {
+    val scrollState = rememberScrollState()
+    val context = LocalContext.current
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier.fillMaxWidth().verticalScroll(scrollState),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box {
+                ImageSlider(
+                    imageUrls = detail.featureImages,
+                    modifier = Modifier.fillMaxWidth().height(250.dp)
+                )
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
+                ) {
+                    CircularIconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Star",
+                            modifier = Modifier.size(12.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    CircularIconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.Default.FavoriteBorder,
+                            contentDescription = "Star",
+                            modifier = Modifier.size(12.dp)
+                        )
+                    }
+                    CircularIconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.Default.Share, contentDescription = "Star",
+                            modifier = Modifier.size(12.dp)
+                        )
+                    }
+
+
+
+                    CircularIconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.Default.Refresh, contentDescription = "Star",
+                            modifier = Modifier.size(12.dp)
+                        )
+                    }
+
+                }
+            }
+
+            Column(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = detail.title,
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
+                    )
+                    Text(
+                        text = detail.address,
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(horizontal = 8.dp)
+                    )
+
+                    val guestCountString = context.resources.getQuantityString(
+                        R.plurals.numberOfGuest,
+                        detail.guestCount, detail.guestCount
+                    )
+
+                    val bedroomCountString = context.resources.getQuantityString(
+                        R.plurals.numberOfBedroom,
+                        detail.bedroomCount, detail.bedroomCount
+                    )
+
+                    val bedCountString = context.resources.getQuantityString(
+                        R.plurals.numberOfBed,
+                        detail.bedCount, detail.bedCount
+                    )
+
+                    val bathString = context.resources.getQuantityString(
+                        R.plurals.numberOfBath,
+                        detail.bathCount, detail.bathCount
+                    )
+
+                    Text(
+                        text = "$guestCountString | $bedroomCountString | $bedCountString | $bathString",
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(horizontal = 8.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+                    ReviewView(
+                        averageRate = detail.averageRate,
+                        reviewStandout = detail.reviewStandout,
+                        reviewCount = detail.reviewCount
+                    )
+                }
+
+                HorizontalDivider()
+
+                HostView(detail.host)
+
+                HorizontalDivider()
+
+                HighlightsView(highlights = detail.highlights)
+
+                HorizontalDivider()
+
+                Text(
+                    text = stringResource(R.string.about_this_place),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                ExpandableTextView(text = detail.introduction)
+
+
+                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.weight(1f))
+            }
+        }
+        ReserveView(
+            price = 123f,
+            checkInDate = LocalDate.now(),
+            checkOutDate = LocalDate.now().plusDays(133),
+            modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth(),
+            onClick = {
+            }
+        )
+    }
+}
+
 @Composable
 fun PropertyDetailScreen(itemId: Long,
                          viewModel: PropertyDetailViewModel = hiltViewModel()) {
@@ -64,170 +208,18 @@ fun PropertyDetailScreen(itemId: Long,
     val detail by viewModel.propertyDetailState.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
 
-    val scrollState = rememberScrollState()
-    val context = LocalContext.current
+
 
     detail?.let {  detail ->
-        Box(modifier = Modifier.fillMaxWidth()) {
-            Column(
-                modifier = Modifier.fillMaxWidth().verticalScroll(scrollState),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Box {
-                    ImageSlider(
-                        imageUrls = detail.featureImages,
-                        modifier = Modifier.fillMaxWidth().height(250.dp)
-                    )
-
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
-                    ) {
-                        CircularIconButton(onClick = {}) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Star",
-                                modifier = Modifier.size(12.dp)
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.weight(1f))
-
-                        CircularIconButton(onClick = {}) {
-                            Icon(
-                                imageVector = Icons.Default.FavoriteBorder,
-                                contentDescription = "Star",
-                                modifier = Modifier.size(12.dp)
-                            )
-                        }
-                        CircularIconButton(onClick = {}) {
-                            Icon(
-                                imageVector = Icons.Default.Share, contentDescription = "Star",
-                                modifier = Modifier.size(12.dp)
-                            )
-                        }
-
-
-
-                        CircularIconButton(onClick = {}) {
-                            Icon(
-                                imageVector = Icons.Default.Refresh, contentDescription = "Star",
-                                modifier = Modifier.size(12.dp)
-                            )
-                        }
-
-                    }
-                }
-
-                Column(
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(horizontal = 12.dp, vertical = 8.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = detail.title,
-                            fontWeight = FontWeight.Bold,
-                            style = MaterialTheme.typography.titleLarge,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
-                        )
-                        Text(
-                            text = detail.address,
-                            style = MaterialTheme.typography.bodyMedium,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(horizontal = 8.dp)
-                        )
-
-                        val guestCountString = context.resources.getQuantityString(
-                            R.plurals.numberOfGuest,
-                            detail.guestCount, detail.guestCount
-                        )
-
-                        val bedroomCountString = context.resources.getQuantityString(
-                            R.plurals.numberOfBedroom,
-                            detail.bedroomCount, detail.bedroomCount
-                        )
-
-                        val bedCountString = context.resources.getQuantityString(
-                            R.plurals.numberOfBed,
-                            detail.bedCount, detail.bedCount
-                        )
-
-                        val bathString = context.resources.getQuantityString(
-                            R.plurals.numberOfBath,
-                            detail.bathCount, detail.bathCount
-                        )
-
-                        Text(
-                            text = "$guestCountString | $bedroomCountString | $bedCountString | $bathString",
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier.padding(horizontal = 8.dp)
-                        )
-
-                        Spacer(modifier = Modifier.height(12.dp))
-                        ReviewView(
-                            averageRate = detail.averageRate,
-                            reviewStandout = detail.reviewStandout,
-                            reviewCount = detail.reviewCount
-                        )
-                    }
-
-                    HorizontalDivider()
-
-                    HostView(detail.host)
-
-                    HorizontalDivider()
-
-                    HighlightsView(highlights = detail.highlights)
-
-                    HorizontalDivider()
-
-                    Text(
-                        text = stringResource(R.string.about_this_place),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    ExpandableTextView(text = detail.introduction)
-
-
-                    Spacer(modifier = Modifier.height(40.dp))
-                    Spacer(modifier = Modifier.weight(1f))
-                }
-            }
-            ReserveView(
-                price = 123f,
-                checkInDate = LocalDate.now(),
-                checkOutDate = LocalDate.now().plusDays(133),
-                modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth(),
-                onClick = {
-                }
-            )
-        }
+        PropertyDetailScreenContent(detail, uiState)
     }
 
 }
 
-@Composable
-fun SampleScreen() {
-    val images = listOf(
-        "https://picsum.photos/id/237/400/300",
-        "https://picsum.photos/id/238/400/300",
-        "https://picsum.photos/id/239/400/300"
-    )
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        ImageSlider(imageUrls = images, modifier = Modifier.fillMaxWidth().height(250.dp))
-        Spacer(modifier = Modifier.fillMaxSize())
-    }
-}
 
 @Preview
 @Composable
 fun PropertyDetailScreenPreview() {
-    PropertyDetailScreen(itemId = 10)
+    PropertyDetailScreenContent(detail = MockData.generatePropertyDetail(2), uiState = UiState())
 }

@@ -25,9 +25,73 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.demobnb.propertylisting.mock.MockData
+import com.demobnb.propertylisting.model.PropertySummary
 import com.demobnb.propertylisting.ui.view.PropertySummary
 
 
+@Composable
+fun PropertyListScreenContent(items: List<PropertySummary>, uiState: UiState,
+                              onPropertyClick: (Long) -> Unit,
+                              onRefresh: () -> Unit,
+                              onDismissAlert: () -> Unit,
+                              ) {
+    val scrollState = rememberScrollState()
+
+    Box(modifier = Modifier.fillMaxSize()) {
+
+
+        Box(modifier = Modifier.fillMaxSize()) {
+            if (uiState.isLoading) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator()
+                }
+            } else if (uiState.error.orEmpty().isNotEmpty()) {
+                AlertDialog(
+                    onDismissRequest = onDismissAlert,
+                    title = { Text(stringResource(R.string.error)) },
+                    text = { Text(uiState.error.orEmpty()) },
+                    confirmButton = {
+                        Button(onClick = onDismissAlert) {
+                            Text("OK")
+                        }
+                    }
+                )
+            } else {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.verticalScroll(scrollState)
+                ) {
+                    items.forEach { item ->
+                        key(item.id) {
+                            PropertySummary(property = item, onClick =  {
+                                onPropertyClick(item.id)
+
+                            })
+                        }
+                    }
+                }
+            }
+        }
+
+        Button(
+            onClick = onRefresh,
+            enabled = !uiState.isLoading,
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .padding(horizontal = 20.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+
+        ) {
+            Text(text = stringResource(R.string.refresh))
+        }
+    }
+}
 @Composable
 fun PropertyListScreen(
     navController: NavController,
@@ -35,6 +99,20 @@ fun PropertyListScreen(
 ) {
     val items by viewModel.propertyListState.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
+
+    PropertyListScreenContent(items = items, uiState = uiState, onPropertyClick = {
+        navController.navigate("detail/$it")
+    },
+        onRefresh = {
+            viewModel.loadData()
+        },
+        onDismissAlert = {
+            viewModel.resetUiState()
+        }
+
+
+
+        )
 
     val scrollState = rememberScrollState()
 
@@ -98,5 +176,5 @@ fun PropertyListScreen(
 @Composable
 fun PropertyListScreenPreview() {
     // val navController = rememberNavController()
-    //  PropertyListScreen(navController = navController)
+     PropertyListScreenContent(items = MockData.generateProperties(10), uiState = UiState(), onPropertyClick = {}, onRefresh = {}, onDismissAlert = {})
 }
