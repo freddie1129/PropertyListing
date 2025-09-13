@@ -27,7 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.PropertySummary
-import com.demobnb.propertylisting.ui.view.PropertySummary
+import com.demobnb.propertylisting.ui.view.PropertySummaryView
 
 
 @Composable
@@ -68,7 +68,7 @@ fun PropertyListScreenContent(items: List<PropertySummary>, uiState: UiState,
                 ) {
                     items.forEach { item ->
                         key(item.id) {
-                            PropertySummary(property = item, onClick =  {
+                            PropertySummaryView(property = item, onClick =  {
                                 onPropertyClick(item.id)
 
                             })
@@ -146,7 +146,7 @@ fun PropertyListScreen(
                 ) {
                     items.forEach { item ->
                         key(item.id) {
-                            PropertySummary(property = item, onClick = {
+                            PropertySummaryView(property = item, onClick = {
                                 navController.navigate("detail/${item.id}")
                             })
                         }

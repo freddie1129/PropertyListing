@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -18,6 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,8 +36,8 @@ import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.PropertySummary
 
 @Composable
-fun PropertySummary(property: PropertySummary,
-                    onClick: () -> Unit
+fun PropertySummaryView(property: PropertySummary,
+                        onClick: () -> Unit
                     ) {
     Card (
     elevation = CardDefaults.cardElevation(),
@@ -44,13 +47,17 @@ fun PropertySummary(property: PropertySummary,
             ) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(10.dp)) {
+            val placeholderPainter: Painter = rememberVectorPainter(Icons.Default.AccountCircle)
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(property.featureImage)
                     .diskCacheKey(property.id.toString())
                     .memoryCacheKey(key = property.id.toString())
+
                     .build(),
                 contentDescription = "Property Image",
+                placeholder = placeholderPainter,
+                error = placeholderPainter,
                 modifier = Modifier.size(120.dp)
             )
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -79,8 +86,8 @@ fun PropertySummary(property: PropertySummary,
 
 @Preview
 @Composable
-fun PropertySummaryPreview() {
-    PropertySummary(MockData.generateProperties(1)[0], onClick = {
+fun PropertySummaryViewPreview() {
+    PropertySummaryView(MockData.generateProperties(1)[0], onClick = {
 
     })
 }
