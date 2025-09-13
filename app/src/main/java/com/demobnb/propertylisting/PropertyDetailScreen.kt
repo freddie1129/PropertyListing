@@ -39,6 +39,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.PropertyDetail
+import com.demobnb.propertylisting.ui.view.CarouselDemo
 import com.demobnb.propertylisting.ui.view.CircularIconButton
 import com.demobnb.propertylisting.ui.view.ExpandableTextView
 import com.demobnb.propertylisting.ui.view.HighlightsView
@@ -207,6 +208,10 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail,
                     style = MaterialTheme.typography.bodyMedium
                 )
                 ExpandableTextView(text = detail.introduction)
+
+                HorizontalDivider()
+
+                CarouselDemo(MockData.generateReviews(10))
 
 
                 Spacer(modifier = Modifier.height(40.dp))

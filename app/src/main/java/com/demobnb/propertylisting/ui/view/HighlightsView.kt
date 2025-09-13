@@ -1,5 +1,6 @@
 package com.demobnb.propertylisting.ui.view
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,7 +36,10 @@ fun HighlightsView(highlights: List<Int>) {
                 Image(
                     painter = painterResource(id = highlight.iconResId),
                     contentDescription = stringResource(id = highlight.titleResId),
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp),
+                    colorFilter = ColorFilter.tint(
+                        MaterialTheme.colorScheme.onSurfaceVariant // Example: good for secondary icons
+                    )
                     )
                 Spacer(modifier = Modifier.size(16.dp))
                 Column {
@@ -49,7 +54,13 @@ fun HighlightsView(highlights: List<Int>) {
 
 }
 
-@Preview(showBackground = true,
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Composable
 fun HighlightsViewPreview() {

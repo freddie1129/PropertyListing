@@ -1,7 +1,11 @@
 package com.demobnb.propertylisting.extension
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import com.demobnb.propertylisting.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.Locale
 
 fun formatStayRange(checkIn: LocalDate, checkOut: LocalDate): String {
@@ -26,5 +30,22 @@ fun formatStayRange(checkIn: LocalDate, checkOut: LocalDate): String {
             "${checkIn.format(dayFormatter)} ${checkIn.format(monthYearFormatter)} - " +
                     "${checkOut.format(dayFormatter)} ${checkOut.format(monthYearFormatter)}"
         }
+    }
+}
+
+@Composable
+fun formatDuration(start: LocalDate, end: LocalDate): String {
+    val context = LocalContext.current
+    val days = ChronoUnit.DAYS.between(start, end)
+    val months = ChronoUnit.MONTHS.between(start, end)
+    val years = ChronoUnit.YEARS.between(start, end)
+    return when {
+        days < 7 -> "$days ${context.resources.getQuantityString(R.plurals.numberOfDay, days.toInt())}"
+        months < 1 -> {
+            val weeks = days / 7
+            "$weeks ${context.resources.getQuantityString(R.plurals.numberOfWeek, weeks.toInt())}"
+        }
+        years < 1 -> "$months ${context.resources.getQuantityString(R.plurals.numberOfMonth, months.toInt())}"
+        else -> "$years ${context.resources.getQuantityString(R.plurals.numberOfYear, years.toInt())}"
     }
 }

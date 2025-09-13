@@ -31,6 +31,16 @@
         <item quantity="other">Reviews</item>
     </plurals>
 
+    <plurals name="numberOfDay">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
+
+    <plurals name="numberOfWeek">
+        <item quantity="one">week</item>
+        <item quantity="other">weeks</item>
+    </plurals>
+
     <plurals name="numberOfMonth">
         <item quantity="one">month</item>
         <item quantity="other">months</item>
@@ -66,6 +76,8 @@
     <string name="total">Total</string>
     <string name="about_this_place">About this place</string>
     <string name="find_a_room">Find a room</string>
+    <string name="ago">ago</string>
+    <string name="onAirbnb">on Airbnb</string>
 
 
 </resources>

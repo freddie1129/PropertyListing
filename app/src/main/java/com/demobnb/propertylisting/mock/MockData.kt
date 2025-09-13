@@ -3,6 +3,8 @@ package com.demobnb.propertylisting.mock
 import com.demobnb.propertylisting.model.Host
 import com.demobnb.propertylisting.model.PropertyDetail
 import com.demobnb.propertylisting.model.PropertySummary
+import com.demobnb.propertylisting.model.Review
+import com.demobnb.propertylisting.model.User
 import io.github.serpro69.kfaker.faker
 import java.time.LocalDate
 import kotlin.random.Random
@@ -15,11 +17,28 @@ object MockData {
 
     val avatarUrl = "https://picsum.photos/id/65/200/200"
 
-    val longSentence = Array(500) { MockData.faker.lorem.words() }.joinToString(" ")
-    val shortSentence = Array(10) { MockData.faker.lorem.words() }.joinToString(" ")
+    val longSentence = Array(500) { faker.lorem.words() }.joinToString(" ")
+    val shortSentence = Array(10) { faker.lorem.words() }.joinToString(" ")
 
     fun generateImageUrls(id: Long) = (id..id + 5).map { "https://picsum.photos/id/${it}/400/200" }.toList()
 
+    fun generateReviews(count: Int) = (1..count).map {
+        Review(
+            id = it.toLong(),
+            propertyId = it.toLong(),
+            userId = it.toLong(),
+            rating = 3,
+            comment = "A good place to stay",
+            createAt = LocalDate.now().minusYears(it.toLong()),
+        )
+    }
+
+    fun generateUser(id: Long) = User(
+        id = faker.random.nextLong(),
+        name = faker.name.firstName(),
+        avatar = avatarUrl,
+        createdAt = LocalDate.now().minusYears(1)
+    )
     fun generateProperties(count: Int): List<PropertySummary> {
        return (1..count).map {
             PropertySummary(
