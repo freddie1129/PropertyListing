@@ -13,10 +13,10 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="reviewView_displaysCorrectAverageRateAndStars()">
+      <SelectionState runConfigName="ReviewViewTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="ReviewViewTest">
+      <SelectionState runConfigName="PropertySummaryDaoTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
