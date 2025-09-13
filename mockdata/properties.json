@@ -1,0 +1,20 @@
+[
+  {
+    "checkInDate": "2025-09-10",
+    "checkOutDate": "2025-09-20",
+    "extendedPrice": 73.81555,
+    "featureImage": "https://picsum.photos/200",
+    "id": 1,
+    "rate": 1.2487566,
+    "title": "cellar"
+  },
+  {
+    "checkInDate": "2025-09-11",
+    "checkOutDate": "2025-09-30",
+    "extendedPrice": 93.8213,
+    "featureImage": "https://picsum.photos/200",
+    "id": 2,
+    "rate": 4.8179936,
+    "title": "hallway"
+  }
+]
