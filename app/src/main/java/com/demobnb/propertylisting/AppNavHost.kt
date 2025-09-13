@@ -1,5 +1,6 @@
 package com.demobnb.propertylisting
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
@@ -9,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 
 @Composable
-fun AppNavHost(modifier: Modifier) {
+fun AppNavHost(modifier: Modifier, paddingValues: PaddingValues) {
     val navController = rememberNavController()
 
     NavHost(navController = navController,
@@ -17,14 +18,14 @@ fun AppNavHost(modifier: Modifier) {
         modifier = modifier) {
         composable("list") {
           //  SampleScreen()
-            PropertyListScreen(navController)
+            PropertyListScreen(navController, paddingValues)
         }
         composable(route = "detail/{itemId}",
             arguments = listOf(navArgument("itemId") { type = NavType.LongType })
         ) { backStackEntry ->
             val itemId = backStackEntry.arguments?.getLong("itemId")
             requireNotNull(itemId)
-            PropertyDetailScreen(itemId)
+            PropertyDetailScreen(itemId, paddingValues, navController)
         }
     }
 }

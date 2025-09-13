@@ -37,7 +37,7 @@ fun ReserveView(
 
 
     Row(verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.background(Color.White)
+        modifier = modifier
             .drawBehind {
                 // Draw a line at the top
                 drawLine(

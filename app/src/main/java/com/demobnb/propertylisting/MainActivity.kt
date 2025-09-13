@@ -22,9 +22,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             PropertyListingTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AppNavHost(modifier = Modifier
-                        .padding(innerPadding) // Apply these paddings to your content's root
-                        .fillMaxSize())
+                    AppNavHost(modifier = Modifier.fillMaxSize(),
+                        paddingValues = innerPadding)
                    /* Greeting(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)

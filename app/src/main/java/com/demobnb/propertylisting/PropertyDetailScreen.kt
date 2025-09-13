@@ -1,9 +1,11 @@
 package com.demobnb.propertylisting
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,6 +28,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.PropertyDetail
 import com.demobnb.propertylisting.ui.view.CircularIconButton
@@ -48,6 +52,8 @@ import java.time.LocalDate
 
 @Composable
 fun PropertyDetailScreen(itemId: Long,
+                         paddingValues: PaddingValues,
+                         navController: NavController,
                          viewModel: PropertyDetailViewModel = hiltViewModel()) {
 
     val detail by viewModel.propertyDetailState.collectAsState()
@@ -58,7 +64,11 @@ fun PropertyDetailScreen(itemId: Long,
     }) {
 
         detail?.let {  detail ->
-            PropertyDetailScreenContentView(detail)
+            PropertyDetailScreenContentView(detail,
+                paddingValues = paddingValues,
+                onBack = {
+                navController.popBackStack()
+            })
         }
 
 
@@ -70,7 +80,9 @@ fun PropertyDetailScreen(itemId: Long,
 }
 
 @Composable
-fun PropertyDetailScreenContentView(detail: PropertyDetail) {
+fun PropertyDetailScreenContentView(detail: PropertyDetail,
+                                    paddingValues: PaddingValues,
+                                    onBack: () -> Unit) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
     Box(modifier = Modifier.fillMaxWidth()) {
@@ -88,8 +100,9 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
+                        .padding(top = paddingValues.calculateTopPadding())
                 ) {
-                    CircularIconButton(onClick = {}) {
+                    CircularIconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Star",
@@ -204,7 +217,9 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail) {
             price = 123f,
             checkInDate = LocalDate.now(),
             checkOutDate = LocalDate.now().plusDays(133),
-            modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth(),
+            modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth()
+                .background(Color.White)
+                .padding(bottom = paddingValues.calculateBottomPadding()),
             onClick = {
             }
         )
@@ -218,5 +233,7 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail) {
 @Preview
 @Composable
 fun PropertyDetailScreenPreview() {
-    PropertyDetailScreenContentView(detail = MockData.generatePropertyDetail(2))
+    PropertyDetailScreenContentView(detail = MockData.generatePropertyDetail(2),
+        paddingValues = PaddingValues(),
+        onBack = { })
 }
