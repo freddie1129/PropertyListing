@@ -1,10 +1,9 @@
 package com.demobnb.propertylisting.mock
 
-import com.demobnb.propertylisting.model.Host
+import com.demobnb.propertylisting.model.User
 import com.demobnb.propertylisting.model.PropertyDetail
 import com.demobnb.propertylisting.model.PropertySummary
 import com.demobnb.propertylisting.model.Review
-import com.demobnb.propertylisting.model.User
 import io.github.serpro69.kfaker.faker
 import java.time.LocalDate
 import kotlin.random.Random
@@ -34,11 +33,29 @@ object MockData {
     }
 
     fun generateUser(id: Long) = User(
-        id = faker.random.nextLong(),
-        name = faker.name.firstName(),
+        id = id,
+        firstName = faker.name.firstName(),
+        lastName = faker.name.lastName(),
         avatar = avatarUrl,
-        createdAt = LocalDate.now().minusYears(1)
+        feature = faker.lorem.words(),
+        address = faker.address.fullAddress(),
+        reviewCount = faker.random.nextInt(1, 100),
+        averageRate = faker.random.nextFloat() * 5,
+        createdAt = LocalDate.now().minusYears(3),
+        firstHostAt = LocalDate.now().minusYears(2),
+        introduction = shortSentence
     )
+
+    fun generateReview(id: Long, propertyId: Long, userId: Long) = Review(
+        id = id,
+        propertyId = propertyId,
+        userId = userId,
+        rating = (faker.random.nextFloat() * 5).toInt(),
+        comment = faker.lorem.words(),
+        createAt = LocalDate.now().minusYears(id),
+    )
+
+
     fun generateProperties(count: Int): List<PropertySummary> {
        return (1..count).map {
             PropertySummary(
@@ -54,7 +71,7 @@ object MockData {
     }
 
 
-    val host = Host(
+    val user = User(
         id = 12L,
         firstName = faker.name.firstName(),
         lastName = faker.name.lastName(),
@@ -68,7 +85,7 @@ object MockData {
         introduction = faker.lorem.words()
     )
 
-    val hostWith3YearHosting = Host(
+    val userWith3YearHosting = User(
         id = 12L,
         firstName = faker.name.firstName(),
         lastName = faker.name.lastName(),
@@ -82,7 +99,7 @@ object MockData {
         introduction = faker.lorem.words()
     )
 
-    val hostWith6MonthHosting = Host(
+    val userWith6MonthHosting = User(
         id = 12L,
         firstName = faker.name.firstName(),
         lastName = faker.name.lastName(),
@@ -109,7 +126,7 @@ object MockData {
             averageRate = Random.nextFloat() * 5f,
             reviewStandout = "Guest favourite",
             reviewCount = 100,
-            host = host,
+            user = user,
             highlights = listOf(1, 2, 3, 4, 5),
             introduction =  longSentence,
             facilities = listOf(),

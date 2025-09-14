@@ -11,7 +11,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import com.demobnb.propertylisting.mock.MockData
-import com.demobnb.propertylisting.model.Host
+import com.demobnb.propertylisting.model.User
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -32,26 +32,26 @@ class HostViewTest {
     val composeTestRule = createComposeRule()
 
     private lateinit var context: Context
-    private lateinit var host: Host
-    private lateinit var hostWith3YearHosting: Host
-    private lateinit var hostWith6MonthHosting: Host
+    private lateinit var user: User
+    private lateinit var userWith3YearHosting: User
+    private lateinit var userWith6MonthHosting: User
 
     @Before
     fun setUp() {
         context = InstrumentationRegistry.getInstrumentation().targetContext
-        host = MockData.host
-        hostWith3YearHosting = MockData.hostWith3YearHosting
-        hostWith6MonthHosting = MockData.hostWith6MonthHosting
+        user = MockData.user
+        userWith3YearHosting = MockData.userWith3YearHosting
+        userWith6MonthHosting = MockData.userWith6MonthHosting
     }
 
     @Test
     fun hostView_displaysCorrectHostName() {
         // Given
-        val expectedHostNameText = context.getString(R.string.hostedBy, host.name)
+        val expectedHostNameText = context.getString(R.string.hostedBy, user.name)
 
 
         composeTestRule.setContent {
-            HostView(host = host)
+            HostView(user = user)
         }
 
 
@@ -62,10 +62,10 @@ class HostViewTest {
     @Test
     fun hostView_displaysHostAvatar_withCorrectContentDescription() {
 
-        val expectedContentDescription = host.name
+        val expectedContentDescription = user.name
 
         composeTestRule.setContent {
-            HostView(host = host)
+            HostView(user = user)
         }
 
         composeTestRule.onNodeWithContentDescription(expectedContentDescription)
@@ -78,11 +78,11 @@ class HostViewTest {
         val years = 3
         val yearText = context.resources.getQuantityString(R.plurals.numberOfYear, years)
         val expectedHostingDetailText =
-            "${hostWith3YearHosting.feature} • $years $yearText ${context.getString(R.string.hosting)}"
+            "${userWith3YearHosting.feature} • $years $yearText ${context.getString(R.string.hosting)}"
 
         // When
         composeTestRule.setContent {
-            HostView(host = hostWith3YearHosting)
+            HostView(user = userWith3YearHosting)
         }
 
         // Then
@@ -95,11 +95,11 @@ class HostViewTest {
         val months = 6
         val monthText = context.resources.getQuantityString(R.plurals.numberOfMonth, months)
         val expectedHostingDetailText =
-            "${hostWith6MonthHosting.feature} • $months $monthText ${context.getString(R.string.hosting)}"
+            "${userWith6MonthHosting.feature} • $months $monthText ${context.getString(R.string.hosting)}"
 
         // When
         composeTestRule.setContent {
-            HostView(host = hostWith6MonthHosting)
+            HostView(user = userWith6MonthHosting)
         }
 
         // Then

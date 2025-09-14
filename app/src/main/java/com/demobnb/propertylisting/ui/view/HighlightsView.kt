@@ -17,10 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-import com.demobnb.propertylisting.mock.MockData
-import com.demobnb.propertylisting.model.Highlight
 import com.demobnb.propertylisting.model.HighlightConstants
-import com.demobnb.propertylisting.model.Host
 
 @Composable
 fun HighlightsView(highlights: List<Int>) {

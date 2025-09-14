@@ -28,7 +28,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,14 +38,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.PropertyDetail
-import com.demobnb.propertylisting.ui.view.CarouselDemo
+import com.demobnb.propertylisting.ui.view.ReviewsRowView
 import com.demobnb.propertylisting.ui.view.CircularIconButton
 import com.demobnb.propertylisting.ui.view.ExpandableTextView
 import com.demobnb.propertylisting.ui.view.HighlightsView
 import com.demobnb.propertylisting.ui.view.HostView
 import com.demobnb.propertylisting.ui.view.ImageSlider
 import com.demobnb.propertylisting.ui.view.ReserveView
-import com.demobnb.propertylisting.ui.view.ReviewView
+import com.demobnb.propertylisting.ui.view.ReviewSummaryView
 import com.demobnb.propertylisting.ui.view.UIStateScreen
 import java.time.LocalDate
 
@@ -186,7 +185,7 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail,
                     )
 
                     Spacer(modifier = Modifier.height(12.dp))
-                    ReviewView(
+                    ReviewSummaryView(
                         averageRate = detail.averageRate,
                         reviewStandout = detail.reviewStandout,
                         reviewCount = detail.reviewCount
@@ -195,7 +194,7 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail,
 
                 HorizontalDivider()
 
-                HostView(detail.host)
+                HostView(detail.user)
 
                 HorizontalDivider()
 
@@ -211,7 +210,7 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail,
 
                 HorizontalDivider()
 
-                CarouselDemo(MockData.generateReviews(10))
+                ReviewsRowView(MockData.generateReviews(10))
 
 
                 Spacer(modifier = Modifier.height(80.dp))

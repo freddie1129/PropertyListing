@@ -13,7 +13,7 @@ data class PropertyDetail(
     val averageRate: Float,
     val reviewStandout: String,
     val reviewCount: Int,
-    val host: Host,
+    val user: User,
     val featureImages: List<String>,
     val highlights: List<Int>,
     val introduction: String,

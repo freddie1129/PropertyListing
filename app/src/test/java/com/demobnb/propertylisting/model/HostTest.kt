@@ -11,7 +11,7 @@ class HostTest {
     @Test
     fun test_hostDurationMonths_six_month_ago() {
         val sixMonthsAgo = LocalDate.now().minusMonths(6)
-        val host = Host(
+        val user = User(
             id = 12L,
             firstName = faker.name.firstName(),
             lastName = faker.name.lastName(),
@@ -24,13 +24,13 @@ class HostTest {
             firstHostAt = sixMonthsAgo,
             introduction = faker.lorem.words()
         )
-        assertEquals(6L, host.hostDurationMonths)
+        assertEquals(6L, user.hostDurationMonths)
     }
 
     @Test
     fun test_hostDurationMonths_current_month() {
         val currentMonth = LocalDate.now()
-        val host = Host(
+        val user = User(
             id = 12L,
             firstName = faker.name.firstName(),
             lastName = faker.name.lastName(),
@@ -43,7 +43,7 @@ class HostTest {
             firstHostAt = currentMonth,
             introduction = faker.lorem.words()
         )
-        assertEquals(0L, host.hostDurationMonths)
+        assertEquals(0L, user.hostDurationMonths)
     }
 
 

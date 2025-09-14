@@ -3,21 +3,17 @@ package com.demobnb.propertylisting
 
 
 import android.content.Context
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
-import com.demobnb.propertylisting.R // Assuming R class is accessible
 import com.demobnb.propertylisting.extension.format // Import your extension function
-import com.demobnb.propertylisting.ui.view.ReviewView
+import com.demobnb.propertylisting.ui.view.ReviewSummaryView
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 /**
- * [ReviewViewTest] is a test class for the [ReviewView] composable.
+ * [ReviewViewTest] is a test class for the [ReviewSummaryView] composable.
  *
  * The tests cover:
  * - Displaying the correct average rating and the corresponding number of star icons.
@@ -51,7 +47,7 @@ class ReviewViewTest {
         val expectedStarCount = averageRate.toInt()
 
         composeTestRule.setContent {
-            ReviewView(
+            ReviewSummaryView(
                 averageRate = averageRate,
                 reviewStandout = reviewStandout,
                 reviewCount = reviewCount
@@ -82,7 +78,7 @@ class ReviewViewTest {
         val expectedReviewPluralString = getPluralString(R.plurals.numberOfReview, reviewCount)
 
         composeTestRule.setContent {
-            ReviewView(
+            ReviewSummaryView(
                 averageRate = averageRate,
                 reviewStandout = reviewStandout,
                 reviewCount = reviewCount
@@ -106,7 +102,7 @@ class ReviewViewTest {
         val expectedReviewPluralString = getPluralString(R.plurals.numberOfReview, reviewCount)
 
         composeTestRule.setContent {
-            ReviewView(
+            ReviewSummaryView(
                 averageRate = averageRate,
                 reviewStandout = reviewStandout,
                 reviewCount = reviewCount
