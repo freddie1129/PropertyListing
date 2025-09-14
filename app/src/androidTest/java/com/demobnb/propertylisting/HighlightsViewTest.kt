@@ -7,7 +7,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import com.demobnb.propertylisting.model.HighlightConstants
-import com.demobnb.propertylisting.ui.view.HighlightsView
+import com.demobnb.propertylisting.ui.components.HighlightsView
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

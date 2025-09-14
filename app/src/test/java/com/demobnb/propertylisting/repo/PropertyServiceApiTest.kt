@@ -1,5 +1,7 @@
 package com.demobnb.propertylisting.repo
 
+import com.demobnb.propertylisting.data.remote.RemoteDateAdapter
+import com.demobnb.propertylisting.data.remote.RemotePropertyService
 import com.demobnb.propertylisting.model.PropertyDetail
 import com.demobnb.propertylisting.model.PropertySummary
 import com.google.gson.GsonBuilder
@@ -26,7 +28,7 @@ class PropertyServiceApiTest {
 
         // Configure Gson with your LocalDateAdapter
         val gson = GsonBuilder()
-            .registerTypeAdapter(LocalDate::class.java, LocalDateAdapter())
+            .registerTypeAdapter(LocalDate::class.java, RemoteDateAdapter())
             .create()
 
         // Configure Retrofit to use the MockWebServer's URL and custom Gson
@@ -34,7 +36,7 @@ class PropertyServiceApiTest {
             .baseUrl(mockWebServer.url("/")) // Use the mock server's URL
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-            .create(PropertyService::class.java)
+            .create(RemotePropertyService::class.java)
     }
 
     @After
@@ -107,7 +109,7 @@ class PropertyServiceApiTest {
         mockWebServer.enqueue(mockResponse)
 
         val propertyId = 101L
-        val propertyDetail: PropertyDetail = apiService.fetchPropertyDetails(propertyId)
+        val propertyDetail: PropertyDetail = apiService.fetchPropertyDetails(propertyId)!!
 
         assertNotNull(propertyDetail)
         assertEquals(propertyId, propertyDetail.id)

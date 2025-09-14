@@ -4,8 +4,11 @@ import com.demobnb.propertylisting.model.PropertyDetail
 import com.demobnb.propertylisting.model.PropertySummary
 import com.demobnb.propertylisting.model.Review
 import com.demobnb.propertylisting.model.User
-import retrofit2.http.Path
 
+/**
+ * Interface for accessing property and related data.
+ * This service provides methods to fetch property listings, details, user information, and reviews.
+ */
 interface PropertyService {
 
     suspend fun fetchProperties(): List<PropertySummary>

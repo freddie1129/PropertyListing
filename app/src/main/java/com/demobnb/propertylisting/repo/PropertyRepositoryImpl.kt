@@ -1,10 +1,9 @@
 package com.demobnb.propertylisting.repo
 
-import androidx.lifecycle.liveData
-import com.demobnb.propertylisting.data.local.PropertyDetailDao
-import com.demobnb.propertylisting.data.local.PropertySummaryDao
-import com.demobnb.propertylisting.data.local.ReviewDao
-import com.demobnb.propertylisting.data.local.UserDao
+import com.demobnb.propertylisting.data.local.dao.PropertyDetailDao
+import com.demobnb.propertylisting.data.local.dao.PropertySummaryDao
+import com.demobnb.propertylisting.data.local.dao.ReviewDao
+import com.demobnb.propertylisting.data.local.dao.UserDao
 import com.demobnb.propertylisting.di.Local
 import com.demobnb.propertylisting.di.Remote
 import com.demobnb.propertylisting.model.DataSource
@@ -18,14 +17,17 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 
-interface PropertyRepository {
-    fun fetchPropertiesList(): Flow<Resource<List<PropertySummary>>>
-    fun fetchPropertyDetails(id: Long): Flow<Resource<PropertyDetail>>
-
-    fun fetchUser(id: Long): Flow<Resource<User>>
-
-    fun fetchReviews(propertyId: Long): Flow<Resource<List<Review>>>
-}
+/**
+ * Repository implementation for managing property data.
+ * This class handles fetching data from both local and remote sources.
+ *
+ * @property remoteService The remote property service for fetching data from the network.
+ * @property localService The local property service for fetching data from the local database.
+ * @property propertySummaryDao DAO for accessing property summary data.
+ * @property propertyDetailDao DAO for accessing property detail data.
+ * @property userDao DAO for accessing user data.
+ * @property reviewDao DAO for accessing review data.
+ */
 class PropertyRepositoryImpl @Inject constructor(
     @Remote private val remoteService: PropertyService,
     @Local private val localService: PropertyService,
@@ -33,16 +35,20 @@ class PropertyRepositoryImpl @Inject constructor(
     private val propertyDetailDao: PropertyDetailDao,
     private val userDao: UserDao,
     private val reviewDao: ReviewDao
-) : PropertyRepository  {
+) : PropertyRepository {
 
-    fun <T> fetch(local: suspend () -> T?, remote: suspend () -> T?, updateLocal: suspend (T) -> Unit) : Flow<Resource<T>> = flow {
+    fun <T> fetch(
+        local: suspend () -> T?,
+        remote: suspend () -> T?,
+        updateLocal: suspend (T) -> Unit
+    ): Flow<Resource<T>> = flow {
         emit(Resource.Loading(source = DataSource.LOCAL))
 
 
         val resourceLocalProperties = try {
             local()?.let { data ->
                 Resource.Success<T>(data, DataSource.LOCAL).also {
-                  emit(it)
+                    emit(it)
                 }
             }
         } catch (e: Exception) {
@@ -62,7 +68,7 @@ class PropertyRepositoryImpl @Inject constructor(
 
         if (resourceRemoteProperties is Resource.Success) {
             if (resourceLocalProperties?.data != resourceRemoteProperties.data) {
-                resourceRemoteProperties.data?.let { data  ->
+                resourceRemoteProperties.data?.let { data ->
                     updateLocal(data)
                 }
                 emit(resourceRemoteProperties)
@@ -72,19 +78,22 @@ class PropertyRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun fetchPropertiesList() = fetch<List<PropertySummary>>(local = {
+    override fun fetchPropertiesList() = fetch<List<PropertySummary>>(
+        local = {
 
-     localService.fetchProperties() },
+            localService.fetchProperties()
+        },
         remote = {
-     remoteService.fetchProperties()
-    },
+            remoteService.fetchProperties()
+        },
         updateLocal = { newProperties ->
             propertySummaryDao.deleteAll()
             propertySummaryDao.insertAll(newProperties)
         }
-        )
+    )
 
-    override fun fetchPropertyDetails(id: Long) = fetch<PropertyDetail>(local = {
+    override fun fetchPropertyDetails(id: Long) = fetch<PropertyDetail>(
+        local = {
         localService.fetchPropertyDetails(id)
     }, remote = {
         remoteService.fetchPropertyDetails(id)
@@ -93,9 +102,10 @@ class PropertyRepositoryImpl @Inject constructor(
         updateLocal = { data ->
             propertyDetailDao.insert(data)
         }
-        )
+    )
 
-    override fun fetchUser(id: Long): Flow<Resource<User>> = fetch<User>(local = {
+    override fun fetchUser(id: Long): Flow<Resource<User>> = fetch<User>(
+        local = {
         localService.fetchUser(id)
     }, remote = {
         remoteService.fetchUser(id)
@@ -118,11 +128,6 @@ class PropertyRepositoryImpl @Inject constructor(
             reviewDao.insertAll(data)
         }
     )
-
-
-
-
-
 
 
 }

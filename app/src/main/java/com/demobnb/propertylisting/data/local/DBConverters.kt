@@ -5,6 +5,14 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.time.LocalDate
 
+/**
+ * Room TypeConverters for custom data types.
+ *
+ * This class provides methods to convert complex data types (like [LocalDate], [List] of [String], and [List] of [Int])
+ * into simpler types that can be stored in the Room database, and vice versa.
+ *
+ * It uses [Gson] for serializing and deserializing lists of integers.
+ */
 class DBConverters {
 
     private val gson = Gson()

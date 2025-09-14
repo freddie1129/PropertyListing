@@ -1,23 +1,35 @@
 package com.demobnb.propertylisting.data.local
 
-import android.widget.RemoteViews
-import androidx.room.Dao
 import androidx.room.Database
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.demobnb.propertylisting.data.local.dao.PropertyDetailDao
+import com.demobnb.propertylisting.data.local.dao.PropertySummaryDao
+import com.demobnb.propertylisting.data.local.dao.ReviewDao
+import com.demobnb.propertylisting.data.local.dao.UserDao
 import com.demobnb.propertylisting.model.PropertyDetail
 import com.demobnb.propertylisting.model.PropertySummary
 import com.demobnb.propertylisting.model.Review
 import com.demobnb.propertylisting.model.User
 
 
-@Database(entities = [PropertySummary::class,
-    PropertyDetail::class,
-    User::class,
-                     Review::class], version = 2)
+/**
+ * Represents the Room database for the application.
+ *
+ * This class defines the database configuration, including the entities it manages
+ * and the DAOs (Data Access Objects) used to interact with the data.
+ *
+ * @property propertySummaryDao DAO for accessing PropertySummary data.
+ * @property userDao DAO for accessing User data.
+ * @property propertyDetailDao DAO for accessing PropertyDetail data.
+ * @property reviewDao DAO for accessing Review data.
+ */
+@Database(
+    entities = [PropertySummary::class,
+        PropertyDetail::class,
+        User::class,
+        Review::class], version = 2
+)
 @TypeConverters(DBConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun propertySummaryDao(): PropertySummaryDao
@@ -26,81 +38,3 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun reviewDao(): ReviewDao
 }
 
-@Dao
-interface PropertySummaryDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(propertySummary: PropertySummary)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(properties: List<PropertySummary>)
-
-    @Query("SELECT * FROM property_summary")
-    suspend fun getAll(): List<PropertySummary>
-
-
-    @Query("DELETE FROM property_summary")
-    suspend fun deleteAll()
-}
-
-@Dao
-interface PropertyDetailDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(propertyDetail: PropertyDetail)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(propertyDetails: List<PropertyDetail>)
-
-    @Query("SELECT * FROM property_detail")
-    suspend fun getAll(): List<PropertyDetail>
-
-    @Query("SELECT * FROM property_detail WHERE id = :propertyId") // Corrected query
-    suspend fun getPropertyDetailById(propertyId: Long): PropertyDetail? // Return type is nullable
-
-    @Query("DELETE FROM property_detail")
-    suspend fun deleteAll()
-}
-
-@Dao
-interface UserDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(user: User)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(users: List<User>)
-
-    @Query("SELECT * FROM user")
-    suspend fun getAll(): List<User>
-
-
-    @Query("SELECT * FROM user WHERE id = :userId")
-    suspend fun getUserById(userId: Long): User? // Return type is n
-
-    @Query("DELETE FROM user")
-    suspend fun deleteAll()
-}
-
-@Dao
-interface ReviewDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(review: Review)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(reviews: List<Review>)
-
-    @Query("SELECT * FROM review")
-    suspend fun getAll(): List<Review>
-
-    //@Query("SELECT * FROM review WHERE propertyId = :propertyId ORDER BY createAt DESC")
-    @Query("SELECT * FROM review WHERE propertyId = :propertyId")
-    suspend fun getReviewsByPropertyId(propertyId: Long): List<Review>
-
-    @Query("DELETE FROM review WHERE propertyId = :propertyId")
-    suspend fun deleteReviewsByPropertyId(propertyId: Long): Int // Returns count
-
-    @Query("DELETE FROM review")
-    suspend fun deleteAll()
-}

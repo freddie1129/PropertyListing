@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.demobnb.propertylisting.data.local.AppDatabase
-import com.demobnb.propertylisting.data.local.PropertySummaryDao
+import com.demobnb.propertylisting.data.local.dao.PropertySummaryDao
 import com.demobnb.propertylisting.mock.MockData
 import kotlinx.coroutines.runBlocking
 import org.junit.After

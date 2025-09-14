@@ -6,10 +6,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
-import com.demobnb.propertylisting.constant.TestTags
+import com.demobnb.propertylisting.util.TestTags
 import com.demobnb.propertylisting.mock.MockData
-import com.demobnb.propertylisting.ui.view.ExpandableTextView
-import com.demobnb.propertylisting.ui.view.HighlightsView
+import com.demobnb.propertylisting.ui.components.ExpandableTextView
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

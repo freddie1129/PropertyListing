@@ -1,16 +1,23 @@
 package com.demobnb.propertylisting.mock
 
-import com.demobnb.propertylisting.model.User
 import com.demobnb.propertylisting.model.PropertyDetail
 import com.demobnb.propertylisting.model.PropertySummary
 import com.demobnb.propertylisting.model.Review
+import com.demobnb.propertylisting.model.User
 import io.github.serpro69.kfaker.faker
 import java.time.LocalDate
 import kotlin.random.Random
 
+/**
+ * A singleton object that provides mock data for various models in the application.
+ * This is useful for testing, development, and previewing UI components without
+ * relying on a live backend or database.
+ *
+ * It uses the `kfaker` library to generate realistic-looking fake data.
+ */
 object MockData {
 
-    val faker = faker {  }
+    val faker = faker { }
 
     val imageUrl = "https://picsum.photos/200"
 
@@ -19,7 +26,8 @@ object MockData {
     val longSentence = Array(500) { faker.lorem.words() }.joinToString(" ")
     val shortSentence = Array(10) { faker.lorem.words() }.joinToString(" ")
 
-    fun generateImageUrls(id: Long) = (id..id + 5).map { "https://picsum.photos/id/${it}/400/200" }.toList()
+    fun generateImageUrls(id: Long) =
+        (id..id + 5).map { "https://picsum.photos/id/${it}/400/200" }.toList()
 
     fun generateReviews(count: Int) = (1..count).map {
         Review(
@@ -57,7 +65,7 @@ object MockData {
 
 
     fun generateProperties(count: Int): List<PropertySummary> {
-       return (1..count).map {
+        return (1..count).map {
             PropertySummary(
                 id = it.toLong(),
                 userId = it.toLong(),
@@ -129,7 +137,7 @@ object MockData {
             reviewCount = 100,
             user = Random.nextLong(),
             highlights = listOf(1, 2, 3, 4, 5),
-            introduction =  longSentence,
+            introduction = longSentence,
             longitude = 27.9769f,
             latitude = 153.3809f,
             neighborHighlights = faker.lorem.words(),
@@ -140,8 +148,5 @@ object MockData {
     }
 
 
-
-
-
-    }
+}
 

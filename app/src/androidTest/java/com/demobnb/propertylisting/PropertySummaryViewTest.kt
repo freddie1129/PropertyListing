@@ -1,22 +1,16 @@
 package com.demobnb.propertylisting
 
 import android.content.Context
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
-import com.demobnb.propertylisting.R // Assuming R class is accessible
-import com.demobnb.propertylisting.extension.CurrencyProvider
-import com.demobnb.propertylisting.extension.format // Import your extension function
+import com.demobnb.propertylisting.util.format // Import your extension function
 import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.PropertySummary
-import com.demobnb.propertylisting.ui.view.PropertySummaryView
-import org.junit.Assert.*
+import com.demobnb.propertylisting.ui.components.PropertySummaryView
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.util.concurrent.atomic.AtomicBoolean
 
 class PropertySummaryViewTest {
 

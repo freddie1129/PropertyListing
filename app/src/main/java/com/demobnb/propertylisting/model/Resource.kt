@@ -1,5 +1,9 @@
 package com.demobnb.propertylisting.model
 
+/**
+ * A generic class that holds a value with its loading status.
+ * @param <T>
+ */
 sealed class Resource<T>(
     val data: T? = null,
     val source: DataSource? = null,

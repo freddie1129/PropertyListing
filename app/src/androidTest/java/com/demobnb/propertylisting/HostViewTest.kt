@@ -1,6 +1,6 @@
 package com.demobnb.propertylisting
 
-import com.demobnb.propertylisting.ui.view.HostView
+import com.demobnb.propertylisting.ui.components.HostView
 
 
 

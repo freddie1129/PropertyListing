@@ -1,5 +1,6 @@
 package com.demobnb.propertylisting.repo
 
+import com.demobnb.propertylisting.data.remote.RemoteDateAdapter
 import org.junit.Test
 
 import com.google.gson.Gson
@@ -14,13 +15,13 @@ import java.time.Month
 class LocalDateAdapterTest {
 
     private lateinit var gson: Gson
-    private lateinit var directAdapter: LocalDateAdapter // For direct method calls
+    private lateinit var directAdapter: RemoteDateAdapter // For direct method calls
 
     @Before
     fun setUp() {
-        directAdapter = LocalDateAdapter()
+        directAdapter = RemoteDateAdapter()
         gson = GsonBuilder()
-            .registerTypeAdapter(LocalDate::class.java, LocalDateAdapter())
+            .registerTypeAdapter(LocalDate::class.java, RemoteDateAdapter())
             .create()
     }
 
@@ -107,7 +108,7 @@ class LocalDateAdapterTest {
 
     // --- Test with a Data Class ---
 
-    data class TestEvent(@JsonAdapter(LocalDateAdapter::class) val eventDate: LocalDate?) // Can also test adapter directly on field if needed
+    data class TestEvent(@JsonAdapter(RemoteDateAdapter::class) val eventDate: LocalDate?) // Can also test adapter directly on field if needed
 
     data class EventHolder(val name: String, val date: LocalDate?)
 

@@ -6,8 +6,8 @@ import android.content.Context
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
-import com.demobnb.propertylisting.extension.format // Import your extension function
-import com.demobnb.propertylisting.ui.view.ReviewSummaryView
+import com.demobnb.propertylisting.util.format // Import your extension function
+import com.demobnb.propertylisting.ui.components.ReviewSummaryView
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
