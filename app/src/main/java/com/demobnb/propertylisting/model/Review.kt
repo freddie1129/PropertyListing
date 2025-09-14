@@ -1,9 +1,15 @@
 package com.demobnb.propertylisting.model
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import org.w3c.dom.Comment
 import java.time.LocalDate
 
-data class Review(val id: Long,
+@Entity(tableName = "review")
+data class Review(
+    @PrimaryKey
+    val id: Long,
                   val propertyId: Long,
                   val userId: Long,
                   val rating: Int,

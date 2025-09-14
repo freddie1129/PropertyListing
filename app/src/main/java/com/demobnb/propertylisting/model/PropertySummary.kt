@@ -1,14 +1,19 @@
 package com.demobnb.propertylisting.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+
+
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
+
 
 @Entity(tableName = "property_summary")
 data class PropertySummary(
     @PrimaryKey
     val id: Long,
+    val userId: Long,
     val title: String,
     val featureImage: String,
     val checkInDate: LocalDate,

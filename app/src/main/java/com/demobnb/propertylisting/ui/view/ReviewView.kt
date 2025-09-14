@@ -85,7 +85,8 @@ fun ReviewContentView(review: Review, user: User?, modifier: Modifier) {
 
             Text(
                 text = review.comment,
-                maxLines = 4
+                maxLines = 4,
+                style = MaterialTheme.typography.bodySmall
             )
 
             Spacer(modifier = Modifier.weight(1f))

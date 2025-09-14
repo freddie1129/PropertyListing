@@ -48,7 +48,7 @@ fun PropertyListScreen(
             uiState = uiState,
             paddingValues = paddingValues,
             onRefresh = {viewModel.loadData()}, onPropertyClick = {
-                navController.navigate("detail/$it")
+                navController.navigate("detail/${it.id}/${it.userId}")
             })
     }
 }
@@ -58,7 +58,7 @@ fun PropertyListScreenContentView(items: List<PropertySummary>,
                                   uiState: UiState,
                                   paddingValues: PaddingValues,
                                   onRefresh: () -> Unit,
-                                  onPropertyClick: (Long) -> Unit) {
+                                  onPropertyClick: (PropertySummary) -> Unit) {
     val scrollState = rememberScrollState()
     Box {
         Column(
@@ -75,7 +75,7 @@ fun PropertyListScreenContentView(items: List<PropertySummary>,
             items.forEach { item ->
                 key(item.id) {
                     PropertySummaryView(property = item, onClick =  {
-                        onPropertyClick(item.id)
+                        onPropertyClick(item)
 
                     })
                 }

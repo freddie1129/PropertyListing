@@ -1,10 +1,16 @@
 package com.demobnb.propertylisting.model
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
 
-data class User(val id: Long,
+@Entity(tableName = "user")
+data class User(
+    @PrimaryKey
+    val id: Long,
                 val firstName: String,
                 val lastName: String,
                 val avatar: String,
@@ -16,7 +22,11 @@ data class User(val id: Long,
                 val firstHostAt: LocalDate,
                 val introduction: String
     ) {
-    val hostDurationMonths: Long = ChronoUnit.MONTHS.between(firstHostAt, LocalDate.now())
 
-    val name: String = "$firstName $lastName"
+    val hostDurationMonths: Long
+        get() = ChronoUnit.MONTHS.between(firstHostAt, LocalDate.now())
+
+
+    val name: String
+        get() =  "$firstName $lastName"
 }

@@ -28,6 +28,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,6 +39,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.PropertyDetail
+import com.demobnb.propertylisting.model.Review
+import com.demobnb.propertylisting.model.User
 import com.demobnb.propertylisting.ui.view.ReviewsRowView
 import com.demobnb.propertylisting.ui.view.CircularIconButton
 import com.demobnb.propertylisting.ui.view.ExpandableTextView
@@ -51,12 +54,14 @@ import java.time.LocalDate
 
 
 @Composable
-fun PropertyDetailScreen(itemId: Long,
+fun PropertyDetailScreen(
                          paddingValues: PaddingValues,
                          navController: NavController,
                          viewModel: PropertyDetailViewModel = hiltViewModel()) {
 
     val detail by viewModel.propertyDetailState.collectAsState()
+    val user by viewModel.propertyUserState.collectAsState()
+    val reviews by viewModel.propertyReviewState.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
 
     UIStateScreen(uiState = uiState, onDismissAlert = {
@@ -66,6 +71,8 @@ fun PropertyDetailScreen(itemId: Long,
         detail?.let {  detail ->
             PropertyDetailScreenContentView(detail,
                 paddingValues = paddingValues,
+                user = user,
+                reviews = reviews,
                 onBack = {
                 navController.popBackStack()
             })
@@ -81,6 +88,8 @@ fun PropertyDetailScreen(itemId: Long,
 
 @Composable
 fun PropertyDetailScreenContentView(detail: PropertyDetail,
+                                    user: User?,
+                                    reviews: List<Review>,
                                     paddingValues: PaddingValues,
                                     onBack: () -> Unit) {
     val scrollState = rememberScrollState()
@@ -194,7 +203,9 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail,
 
                 HorizontalDivider()
 
-                HostView(detail.user)
+
+                HostView(user)
+
 
                 HorizontalDivider()
 
@@ -204,13 +215,13 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail,
 
                 Text(
                     text = stringResource(R.string.about_this_place),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyLarge
                 )
                 ExpandableTextView(text = detail.introduction)
 
                 HorizontalDivider()
 
-                ReviewsRowView(MockData.generateReviews(10))
+                ReviewsRowView(reviews)
 
 
                 Spacer(modifier = Modifier.height(80.dp))
@@ -239,5 +250,7 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail,
 fun PropertyDetailScreenPreview() {
     PropertyDetailScreenContentView(detail = MockData.generatePropertyDetail(2),
         paddingValues = PaddingValues(),
+        user = MockData.generateUser(12),
+        reviews = MockData.generateReviews(10),
         onBack = { })
 }

@@ -3,7 +3,10 @@ package com.demobnb.propertylisting.di
 import android.content.Context
 import androidx.room.Room
 import com.demobnb.propertylisting.data.local.AppDatabase
+import com.demobnb.propertylisting.data.local.PropertyDetailDao
 import com.demobnb.propertylisting.data.local.PropertySummaryDao
+import com.demobnb.propertylisting.data.local.ReviewDao
+import com.demobnb.propertylisting.data.local.UserDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,5 +30,14 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideUserDao(db: AppDatabase): PropertySummaryDao = db.propertySummaryDao()
+    fun provideSummaryDao(db: AppDatabase): PropertySummaryDao = db.propertySummaryDao()
+
+    @Provides
+    fun providePropertyDetailDao(db: AppDatabase): PropertyDetailDao = db.propertyDetailDao()
+
+    @Provides
+    fun provideUserDao(db: AppDatabase): UserDao = db.userDao()
+
+    @Provides
+    fun provideReviewDao(db: AppDatabase): ReviewDao = db.reviewDao()
 }

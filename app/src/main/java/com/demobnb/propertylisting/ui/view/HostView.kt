@@ -30,7 +30,7 @@ import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.User
 
 @Composable
-fun HostView(user: User) {
+fun HostView(user: User?) {
     val context = LocalContext.current
     val placeholderPainter: Painter = rememberVectorPainter(Icons.Default.AccountCircle)
     Row(
@@ -39,33 +39,41 @@ fun HostView(user: User) {
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(user.avatar)
-                .diskCacheKey(user.id.toString())
-                .memoryCacheKey(key = user.id.toString())
+                .data(user?.avatar)
+                .diskCacheKey(user?.id.toString())
+                .memoryCacheKey(key = user?.id.toString())
                 .build(),
             placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
             error = placeholderPainter,
-            contentDescription = user.name,
+            contentDescription = user?.name.orEmpty(),
             modifier = Modifier.size(64.dp)
                 .clip(CircleShape)
         )
         Spacer(modifier = Modifier.size(8.dp))
 
-        Column {
-            Text(text = stringResource(R.string.hostedBy, user.name),
-                style = MaterialTheme.typography.titleSmall ,fontWeight = FontWeight.Bold)
-            val hostingDetail = if (user.hostDurationMonths > 12) {
-                val years = user.hostDurationMonths / 12
-                val yearText = context.resources.getQuantityString(R.plurals.numberOfYear, years.toInt())
-                "$years $yearText"
-            } else {
-                val month = user.hostDurationMonths
-                val monthText = context.resources.getQuantityString(R.plurals.numberOfMonth, month.toInt())
-                "$month $monthText"
-            }.let { "${user.feature} • $it ${stringResource(R.string.hosting)}"}
-            Text(text = hostingDetail,
-                style = MaterialTheme.typography.bodySmall)
+        user?.let { user ->
+            Column {
+                Text(
+                    text = stringResource(R.string.hostedBy, user.name),
+                    style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold
+                )
+                val hostingDetail = if (user.hostDurationMonths > 12) {
+                    val years = user.hostDurationMonths / 12
+                    val yearText =
+                        context.resources.getQuantityString(R.plurals.numberOfYear, years.toInt())
+                    "$years $yearText"
+                } else {
+                    val month = user.hostDurationMonths
+                    val monthText =
+                        context.resources.getQuantityString(R.plurals.numberOfMonth, month.toInt())
+                    "$month $monthText"
+                }.let { "${user.feature} • $it ${stringResource(R.string.hosting)}" }
+                Text(
+                    text = hostingDetail,
+                    style = MaterialTheme.typography.bodySmall
+                )
 
+            }
         }
     }
 

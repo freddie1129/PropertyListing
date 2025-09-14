@@ -27,7 +27,7 @@ object MockData {
             propertyId = it.toLong(),
             userId = it.toLong(),
             rating = 3,
-            comment = "A good place to stay",
+            comment = Array(10) { faker.lorem.words() }.joinToString(" "),
             createAt = LocalDate.now().minusYears(it.toLong()),
         )
     }
@@ -60,6 +60,7 @@ object MockData {
        return (1..count).map {
             PropertySummary(
                 id = it.toLong(),
+                userId = it.toLong(),
                 title = faker.house.rooms(),
                 featureImage = imageUrl,
                 extendedPrice = faker.random.nextFloat() * 100,
@@ -126,17 +127,15 @@ object MockData {
             averageRate = Random.nextFloat() * 5f,
             reviewStandout = "Guest favourite",
             reviewCount = 100,
-            user = user,
+            user = Random.nextLong(),
             highlights = listOf(1, 2, 3, 4, 5),
             introduction =  longSentence,
-            facilities = listOf(),
             longitude = 27.9769f,
             latitude = 153.3809f,
             neighborHighlights = faker.lorem.words(),
             availabilityStart = LocalDate.now(),
             availabilityEnd = LocalDate.now().plusDays(30),
             cancellationPolicy = 123L,
-            reviews = listOf()
         )
     }
 

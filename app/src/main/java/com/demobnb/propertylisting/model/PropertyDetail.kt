@@ -1,8 +1,13 @@
 package com.demobnb.propertylisting.model
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import java.time.LocalDate
 
+@Entity(tableName = "property_detail")
 data class PropertyDetail(
+    @PrimaryKey
     val id: Long,
     val title: String,
     val guestCount: Int,
@@ -13,19 +18,18 @@ data class PropertyDetail(
     val averageRate: Float,
     val reviewStandout: String,
     val reviewCount: Int,
-    val user: User,
+    val user: Long,
     val featureImages: List<String>,
     val highlights: List<Int>,
     val introduction: String,
-    val facilities: List<Facility>,
     val longitude: Float,
     val latitude: Float,
     val neighborHighlights: String,
     val availabilityStart: LocalDate,
     val availabilityEnd: LocalDate,
     val cancellationPolicy: Long,
-    val reviews: List<Review>
 
 ) {
-    val featureDescription1 = "$bedroomCount bedroom, $bedCount bed, $bathCount bath"
+
+
 }
