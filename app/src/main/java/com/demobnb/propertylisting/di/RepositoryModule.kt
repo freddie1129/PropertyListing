@@ -38,10 +38,12 @@ abstract class RepositoryModule {
     @Binds
     abstract fun bindLocalDataSource(impl: LocalPropertyService): PropertyService
 
-
+    // Inject MockRemotePropertyService is only for testing
+    // Inject RemotePropertyService when deploy
     @Remote
     @Singleton
     @Binds
     abstract fun bindRemoteDataSource(impl: MockRemotePropertyService): PropertyService
+
 
 }
