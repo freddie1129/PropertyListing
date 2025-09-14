@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -64,10 +66,10 @@ fun PropertyListScreenContentView(
     onPropertyClick: (PropertySummary) -> Unit
 ) {
     val scrollState = rememberScrollState()
-    Box {
+    Box(modifier = Modifier.fillMaxSize()) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.verticalScroll(scrollState)
+            modifier = Modifier.fillMaxSize().verticalScroll(scrollState)
         ) {
             Text(
                 stringResource(R.string.find_a_room),
@@ -79,12 +81,16 @@ fun PropertyListScreenContentView(
                     .fillMaxWidth()
                     .padding(top = paddingValues.calculateTopPadding())
             )
-            items.forEach { item ->
-                key(item.id) {
-                    PropertySummaryView(property = item, onClick = {
-                        onPropertyClick(item)
+            if (items.isEmpty()) {
+                Spacer(modifier = Modifier.weight(1f))
+            } else {
+                items.forEach { item ->
+                    key(item.id) {
+                        PropertySummaryView(property = item, onClick = {
+                            onPropertyClick(item)
 
-                    })
+                        })
+                    }
                 }
             }
         }
