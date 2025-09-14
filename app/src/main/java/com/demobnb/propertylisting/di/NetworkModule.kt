@@ -1,5 +1,6 @@
 package com.demobnb.propertylisting.di
 
+import com.demobnb.propertylisting.BuildConfig
 import com.demobnb.propertylisting.data.remote.RemoteDateAdapter
 import com.demobnb.propertylisting.data.remote.RemotePropertyService
 import com.google.gson.Gson
@@ -28,7 +29,7 @@ import javax.inject.Singleton
 object NetworkModule {
 
 
-    private const val BASE_URL = "https://freddie1129.github.io/"
+    private const val BASE_URL = BuildConfig.HOSTNAME
 
     @Provides
     @Singleton

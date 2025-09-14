@@ -22,6 +22,24 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    flavorDimensions += "version"
+
+    productFlavors {
+        create("demo") {
+            dimension = "version"
+            applicationIdSuffix = ".demo"
+            versionNameSuffix = "-demo"
+            manifestPlaceholders["appName"] = "PropertyListing Test"
+            buildConfigField("String", "HOSTNAME", "\"https://api.example.com\"")
+        }
+        create("production") {
+            dimension = "version" // Assign to the 'version' dimension
+            manifestPlaceholders["appName"] = "PropertyListing Pro"
+            buildConfigField("String", "HOSTNAME", "\"https://api.example.com\"")
+        }
+    }
+
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -40,6 +58,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
