@@ -6,8 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.parcelize)
-
-
 }
 
 android {
@@ -49,10 +47,10 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
 
     //Compose
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
@@ -61,6 +59,7 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
+    implementation(libs.androidx.runner)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
@@ -80,21 +79,19 @@ dependencies {
     implementation(libs.room.ktx)
     testImplementation(libs.room.testing)
 
-    // Glide
-    implementation(libs.glide)
+    // Coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
 
-    // ViewModel Lifecycle Scopes
+    // ViewModel
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.viewmodel.compose)
 
     // Mock date
     implementation(libs.kotlin.faker)
-    //Test
 
-
+    // Test
     testImplementation(libs.junit)
     testImplementation(libs.coroutines.test)
     testImplementation(libs.androidx.arch.core.testing)
@@ -106,4 +103,5 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     testImplementation(kotlin("test"))
     testImplementation(libs.mockwebserver)
+
 }

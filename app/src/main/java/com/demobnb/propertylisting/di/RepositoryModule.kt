@@ -1,7 +1,7 @@
 package com.demobnb.propertylisting.di
 
 import com.demobnb.propertylisting.data.local.LocalPropertyService
-import com.demobnb.propertylisting.data.remote.MockRemotePropertyService
+import com.demobnb.propertylisting.mock.MockRemotePropertyService
 import com.demobnb.propertylisting.repo.PropertyRepository
 import com.demobnb.propertylisting.repo.PropertyRepositoryImpl
 import com.demobnb.propertylisting.repo.PropertyService

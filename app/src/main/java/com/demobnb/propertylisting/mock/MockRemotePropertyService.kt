@@ -1,6 +1,5 @@
-package com.demobnb.propertylisting.data.remote
+package com.demobnb.propertylisting.mock
 
-import com.demobnb.propertylisting.mock.MockData
 import com.demobnb.propertylisting.model.PropertyDetail
 import com.demobnb.propertylisting.model.PropertySummary
 import com.demobnb.propertylisting.model.Review
@@ -9,7 +8,7 @@ import com.demobnb.propertylisting.repo.PropertyService
 import javax.inject.Inject
 
 /**
- * A mock implementation of [PropertyService] that uses [MockData] to generate data.
+ * A mock implementation of [com.demobnb.propertylisting.repo.PropertyService] that uses [MockData] to generate data.
  * This is useful for testing and development purposes.
  */
 class MockRemotePropertyService @Inject constructor() : PropertyService {
