@@ -28,8 +28,10 @@ fun UIStateScreen(uiState: UiState, onDismissAlert: () -> Unit, content: @Compos
             ) {
                 CircularProgressIndicator()
             }
-        } else if (uiState.error.orEmpty().isNotEmpty()) {
-            Text("testerror")
+        } else {
+            content()
+        }
+        if (uiState.error.orEmpty().isNotEmpty()) {
             AlertDialog(
                 onDismissRequest = onDismissAlert,
                 title = { Text(stringResource(R.string.error)) },
@@ -40,9 +42,6 @@ fun UIStateScreen(uiState: UiState, onDismissAlert: () -> Unit, content: @Compos
                     }
                 }
             )
-        } else {
-
-            content()
         }
     }
 }
