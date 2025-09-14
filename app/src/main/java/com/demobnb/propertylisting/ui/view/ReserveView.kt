@@ -1,5 +1,6 @@
 package com.demobnb.propertylisting.ui.view
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -69,11 +70,23 @@ fun ReserveView(
 
 }
 
-@Preview
+@Preview(
+    name = "Light Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "Dark Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
 @Composable
 fun ReserveViewPreview() {
-    ReserveView(price = 150f, checkInDate = LocalDate.now(),
-        checkOutDate = LocalDate.now().plusDays(133),
-        modifier = Modifier,
-        onClick = {})
+    MaterialTheme {
+        ReserveView(
+            price = 150f, checkInDate = LocalDate.now(),
+            checkOutDate = LocalDate.now().plusDays(133),
+            modifier = Modifier,
+            onClick = {})
+    }
 }

@@ -214,7 +214,7 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail,
                 CarouselDemo(MockData.generateReviews(10))
 
 
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(80.dp))
                 Spacer(modifier = Modifier.weight(1f))
             }
         }
@@ -223,7 +223,7 @@ fun PropertyDetailScreenContentView(detail: PropertyDetail,
             checkInDate = LocalDate.now(),
             checkOutDate = LocalDate.now().plusDays(133),
             modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth()
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
                 .padding(bottom = paddingValues.calculateBottomPadding()),
             onClick = {
             }

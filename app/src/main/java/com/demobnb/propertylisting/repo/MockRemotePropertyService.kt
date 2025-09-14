@@ -16,7 +16,7 @@ class MockRemotePropertyService @Inject constructor(): PropertyService {
     }
 
     override suspend fun fetchPropertyDetails(id: Long): PropertyDetail {
-        delay(5000)
+        delay(2000)
         return MockData.generatePropertyDetail(id = id)
     }
 
